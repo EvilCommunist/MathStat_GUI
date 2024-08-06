@@ -49,6 +49,11 @@ int main(){
         return 1;
 
     writeVector(getOrdStatistics(test));
+    std::cout << std::endl << getChosenMid(test);
+    std::cout << std::endl << getDispersion(test);
+    std::cout << std::endl << getMedian(test);
+    std::cout << std::endl << getQuantile(test, 1);
+    std::cout << std::endl << getQuantile(test, 3);
     std::cout << "\nTest successfully completed!";
 }
 

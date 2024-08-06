@@ -28,36 +28,64 @@ std::vector<int> getOrdStatistics(std::vector<int> unsortedData){
 
 
 float getChosenMid(std::vector<float> ordStatistics){
-	return 0.0f;
+	float sum{}, mid{};
+	for (int i = 0; i < ordStatistics.size(); i++) {
+		sum += ordStatistics[i];
+	}
+	mid = sum / ordStatistics.size();
+	return mid;
 }
 
 float getChosenMid(std::vector<int> ordStatistics){
-	return 1;
+	float sum{}, mid{};
+	for (int i = 0; i < ordStatistics.size(); i++) {
+		sum += ordStatistics[i];
+	}
+	mid = sum / ordStatistics.size();
+	return mid;
 }
 
 
 float getDispersion(std::vector<float> ordStatistics){
-	return 0.0f;
+	auto ch_mid = getChosenMid(ordStatistics);
+	float sum{};
+	for (int i = 0; i < ordStatistics.size(); i++) {
+		sum += pow(ordStatistics[i] - ch_mid,2);
+	}
+	auto disp = sum / ordStatistics.size();
+	return disp;
 }
 
 float getDispersion(std::vector<int> ordStatistics){
-	return 1;
+	auto ch_mid = getChosenMid(ordStatistics);
+	float sum{};
+	for (int i = 0; i < ordStatistics.size(); i++) {
+		sum += pow(ordStatistics[i] - ch_mid, 2);
+	}
+	auto disp = sum / ordStatistics.size();
+	return disp;
 }
 
 
 float getMedian(std::vector<float> ordStatistics){
-	return 0.0f;
+	auto size = ordStatistics.size();
+	auto firstElem = ordStatistics[size / 2];
+	auto secondElem = ordStatistics[size / 2 + 1];
+	return (firstElem + secondElem) / 2;
 }
 
 float getMedian(std::vector<int> ordStatistics){
-	return 1;
+	auto size = ordStatistics.size();
+	float firstElem = ordStatistics[size / 2];
+	float secondElem = ordStatistics[size / 2 + 1];
+	return (firstElem + secondElem) / 2;
 }
 
 
 float getQuantile(std::vector<float> ordStatistics, short int numberOfQuantile){
-	return 0.0f;
+	return ordStatistics[ordStatistics.size()*0.25*numberOfQuantile];
 }
 
 int getQuantile(std::vector<int> ordStatistics, short int numberOfQuantile){
-	return 1;
+	return ordStatistics[ordStatistics.size() * 0.25 * numberOfQuantile];
 }
