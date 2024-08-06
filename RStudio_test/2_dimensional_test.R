@@ -24,6 +24,7 @@ print(sorted_data_y[length(sorted_data_y)*0.25+1])
 print(sorted_data_x[length(sorted_data_x)*0.75+1])
 print(sorted_data_y[length(sorted_data_y)*0.75+1])
 
+# Дисперсии
 s_x <- sum((data_x-ch_mid_x)^2)/length(data_x) 
 s_y <- sum((data_y-ch_mid_y)^2)/length(data_y) 
 
