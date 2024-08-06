@@ -48,12 +48,13 @@ int main(){
     if (!readData1Dim(filepath, test))
         return 1;
 
-    writeVector(getOrdStatistics(test));
-    std::cout << std::endl << getChosenMid(test);
-    std::cout << std::endl << getDispersion(test);
-    std::cout << std::endl << getMedian(test);
-    std::cout << std::endl << getQuantile(test, 1);
-    std::cout << std::endl << getQuantile(test, 3);
+    auto sortedTest = getOrdStatistics(test);
+    writeVector(sortedTest);
+    std::cout << std::endl << getChosenMid(sortedTest);
+    std::cout << std::endl << getDispersion(sortedTest);
+    std::cout << std::endl << getMedian(sortedTest);
+    std::cout << std::endl << getQuartile(sortedTest, 1);
+    std::cout << std::endl << getQuartile(sortedTest, 3);
     std::cout << "\nTest successfully completed!";
 }
 

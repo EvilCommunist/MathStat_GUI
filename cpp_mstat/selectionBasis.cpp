@@ -69,23 +69,23 @@ float getDispersion(std::vector<int> ordStatistics){
 
 float getMedian(std::vector<float> ordStatistics){
 	auto size = ordStatistics.size();
-	auto firstElem = ordStatistics[size / 2];
-	auto secondElem = ordStatistics[size / 2 + 1];
+	auto firstElem = ordStatistics[size / 2-1];
+	auto secondElem = ordStatistics[size / 2];
 	return (firstElem + secondElem) / 2;
 }
 
 float getMedian(std::vector<int> ordStatistics){
 	auto size = ordStatistics.size();
-	float firstElem = ordStatistics[size / 2];
-	float secondElem = ordStatistics[size / 2 + 1];
+	float firstElem = ordStatistics[size / 2-1];
+	float secondElem = ordStatistics[size / 2];
 	return (firstElem + secondElem) / 2;
 }
 
 
-float getQuantile(std::vector<float> ordStatistics, short int numberOfQuantile){
+float getQuartile(std::vector<float> ordStatistics, short int numberOfQuantile){
 	return ordStatistics[ordStatistics.size()*0.25*numberOfQuantile];
 }
 
-int getQuantile(std::vector<int> ordStatistics, short int numberOfQuantile){
+int getQuartile(std::vector<int> ordStatistics, short int numberOfQuantile){
 	return ordStatistics[ordStatistics.size() * 0.25 * numberOfQuantile];
 }
