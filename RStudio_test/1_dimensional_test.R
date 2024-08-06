@@ -7,14 +7,14 @@ sorted_data <- sort(data) # Нахождение порядковой стати
 print(sorted_data)
 
 # Выборочное среднее:
-ch_mid <- sum(data)/length(data)
+ch_mid <- mean(data)
 print(ch_mid)
 
 # Выборочная дисперсия
 print(sum((sorted_data-ch_mid)^2)/length(sorted_data))
 
 # Выборочная медиана
-print((sorted_data[length(sorted_data)/2]+sorted_data[length(sorted_data)/2+1])/2)
+print(median(sorted_data))
 
 # Первый квартиль
 print(sorted_data[length(sorted_data)*0.25+1])
