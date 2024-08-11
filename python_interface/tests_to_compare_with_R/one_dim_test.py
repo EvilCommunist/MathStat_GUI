@@ -4,10 +4,9 @@ from handlers_functions.selection import one_dim_selection as one_dim_sel
 
 script_dir = os.path.dirname(__file__)
 data_file_path = os.path.join(script_dir, '../../RStudio_test/r_test_data/test_data_for_1dimension.txt')
-raw_data: list[str]
 
 with open(data_file_path, 'r') as data_file:
-    raw_data = data_file.read().split()
+    raw_data: list[str] = data_file.read().split()
 data = list(map(float, raw_data))
 print(data)
 
