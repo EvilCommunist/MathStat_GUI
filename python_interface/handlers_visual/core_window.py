@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import Menu
 from panels.selection import open_new_window
 
+
 def create_menu(root):
     menu_bar = Menu(root)
     root.config(menu=menu_bar)
@@ -10,6 +11,7 @@ def create_menu(root):
     menu_bar.add_cascade(label="Меню", menu=file_menu)
 
     file_menu.add_command(label="Предметная область", command=lambda: create_buttons_window(root))
+
 
 def create_buttons_window(root):
     buttons_window = tk.Toplevel(root)
@@ -28,8 +30,10 @@ def create_buttons_window(root):
     button3 = tk.Button(buttons_window, text="Button 3", command=lambda: on_button_click("Button 3"))
     button3.pack(pady=5)
 
+
 def on_button_click(button_name):
     print(f"Button '{button_name}' clicked")
+
 
 if __name__ == "__main__":
     root = tk.Tk()

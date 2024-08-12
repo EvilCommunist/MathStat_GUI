@@ -3,8 +3,9 @@ from tkinter import *
 import sys
 import os
 
+from handlers_functions.selection.one_dim_selection import *
+
 sys.path.append(os.path.abspath('python_interface/handlers_functions/selection'))
-from one_dim_selection import *
 
 
 def open_new_window(root):
@@ -13,16 +14,8 @@ def open_new_window(root):
     new_window.title("Выборка")
     new_window.geometry('400x400')
     
-    close_button = tk.Button(new_window, text = ('<-'), command = new_window.destroy)
-    close_button.place(x = 350, y = 0)
-    
-    # Entry
-    #frame = Frame(new_window)
-    #frame.pack()
-    
-   # vector_entry = Entry(frame, width = 20)
-    #vector_entry.insert(0, "")
-    #vector_entry.pack(padx = 5, pady = 5)
+    close_button = tk.Button(new_window, text='<-', command=new_window.destroy)
+    close_button.place(x=350, y=0)
     
     def starter():
         
@@ -44,24 +37,20 @@ def open_new_window(root):
             
             result_label.config(text=f"Ошибка: {e}")
 
-    
     def getter():
         text = vector_1.get()
         list_1.append(text)
-    
     
     list_1 = []
     list_2 = []
     
     vector_1 = Entry(new_window)
-    vector_1.pack(padx=30,pady=10)
+    vector_1.pack(padx=30, pady=10)
     
-    start_button = tk.Button(root, text="Вычислить", command=starter)
+    start_button = tk.Button(new_window, text="Вычислить", command=starter)
     start_button.pack()
     
-    result_label = tk.Label(root, text="Результаты будут отображены здесь")
+    result_label = tk.Label(new_window, text="Результаты будут отображены здесь")
     result_label.pack()
-    
-    
-    
+
     root.mainloop()
