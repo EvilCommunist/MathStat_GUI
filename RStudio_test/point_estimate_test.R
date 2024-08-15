@@ -20,3 +20,10 @@ mean_val <- mean(data)
 variance_estimate <- sum((data - mean_val)^2) / (length(data))
 print(variance_estimate_rounded)
 
+
+# Функция правдоподобия для распределения Пуассона
+data <- c(10, 10, 0, 15, 65, 18, 11, 12, 13, 15, 9, 7, 0, 20, 13) # for Pois must be integer!!!
+lambda <- mean(data) # lambda can be set
+log_likelihood <- sum(dpois(data, lambda = lambda, log = TRUE))
+round(log_likelihood, 3)
+
