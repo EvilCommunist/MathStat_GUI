@@ -16,8 +16,7 @@ def get_pois_function_likelihood(data: list[int] | list[float], lyambda: float |
         if not is_int(data):
             raise Exception("Данные для распределения Пуассона должны быть целочисленными!")
     except Exception as ex:
-        print(ex)
-        return 0
+        return ex
     if lyambda is None:
         lyambda = mean(data)
     # ... ENTER CODE HERE .....
