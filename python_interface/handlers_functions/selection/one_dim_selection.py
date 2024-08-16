@@ -17,23 +17,23 @@ def get_chosen_middle(data: list[int] | list[float]) -> float:
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(data)
     else:
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data)
-    r_mean = r_obj.r['mean']
+    r_mean = r_obj.r["mean"]
     return float(r_mean(r_data).r_repr())
 
 
 def get_chosen_disp(data: list[int] | list[float], mean: float) -> float:
-    chosen_disp: float = sum((val-mean)**2 for val in data)/len(data)
+    chosen_disp: float = sum((val - mean) ** 2 for val in data) / len(data)
     return chosen_disp
 
 
 def get_chosen_median(sorted_data: list[int] | list[float]) -> float | int:
     if list_is_integer(sorted_data):
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(sorted_data)
-        r_median = r_obj.r['median']
+        r_median = r_obj.r["median"]
         chosen_median: int = int(r_median(r_data).r_repr())
     else:
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(sorted_data)
-        r_median = r_obj.r['median']
+        r_median = r_obj.r["median"]
         chosen_median: float = float(r_median(r_data).r_repr())
     return chosen_median
 
@@ -42,4 +42,4 @@ def get_quartile(sorted_data: list[int] | list[float], num_of_quantile: int = 1)
     if num_of_quantile < 0 or num_of_quantile > 4:
         print("Некорректное значение квартиля")
         return 0
-    return sorted_data[int(len(sorted_data)*0.25*num_of_quantile)]
+    return sorted_data[int(len(sorted_data) * 0.25 * num_of_quantile)]

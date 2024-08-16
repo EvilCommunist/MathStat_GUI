@@ -9,5 +9,5 @@ def get_cor_coef(data_fst: list[int] | list[float], data_scnd: list[int] | list[
     else:
         r_data_x: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data_fst)
         r_data_y: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data_scnd)
-    r_cor = r_obj.r['cor']
+    r_cor = r_obj.r["cor"]
     return float(r_cor(r_data_x, r_data_y).r_repr())

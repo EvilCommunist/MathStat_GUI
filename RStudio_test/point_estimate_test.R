@@ -22,12 +22,12 @@ print(variance_estimate_rounded)
 
 
 # Функция правдоподобия для распределения Пуассона
-data <- c(1, 0, 0, 2, 2) # for Pois must be integer!!!
+data <- c(1, 0, 1, 2, 2) # for Pois must be integer!!!
 lambda <- mean(data) # lambda can be set
 log_likelihood_pois <- sum(dpois(data, lambda = lambda, log = TRUE))
 round(log_likelihood_pois, 3)
 # Функция правдоподобия для распределения Биномиального
-data <- c(1, 0, 0, 2, 2) # something
+data <- c(1, 0, 1, 2, 2) # for binom must be integer!!!
 size <- max(data)
 print(size)
 prob <- mean(data)/size
