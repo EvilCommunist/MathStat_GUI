@@ -29,12 +29,14 @@ round(log_likelihood_pois, 3)
 # Функция правдоподобия для распределения Биномиального
 data <- c(1, 0, 1, 2, 2) # for binom must be integer!!!
 size <- max(data)
-print(size)
 prob <- mean(data)/size
-print(mean(data))
-print(prob)
 log_likelihood_bin <- sum(dbinom(data, size, prob, log = TRUE))
 round(log_likelihood_bin, 3)
+# Функция правдоподобия для распределения Нормального
+data <- c(1, 0, 1, 2, 2)
+std <- sd(data)
+log_likelihood_norm <- sum(dnorm(data, mean(data), std, log = TRUE))
+round(log_likelihood_norm, 3)
 
 
 observations <- c(1, 2, 2)

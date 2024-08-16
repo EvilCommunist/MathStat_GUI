@@ -1,7 +1,8 @@
 import os
 from handlers_functions.point_estimate.estimation import (get_variance_sample_mean as get_var_smean,
                                                           get_pois_function_likelihood as get_pois,
-                                                          get_binomial_function_likelihood as get_binom)
+                                                          get_binomial_function_likelihood as get_binom,
+                                                          get_normal_function_likelihood as get_norm)
 
 
 script_dir = os.path.dirname(__file__)
@@ -18,3 +19,5 @@ print(get_var_smean(data))
 print(get_pois([1, 0, 1, 2, 2]))
 
 print(get_binom([1, 0, 1, 2, 2]))
+
+print(get_norm([1, 0, 1, 2, 2]))
