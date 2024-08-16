@@ -12,17 +12,17 @@ def get_sort_data(data: list[int] | list[float]) -> list[int] | list[float]:
     return sorted(data)
 
 
-def get_chosen_middle(sorted_data: list[int] | list[float]) -> float:
-    if list_is_integer(sorted_data):
-        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(sorted_data)
+def get_chosen_middle(data: list[int] | list[float]) -> float:
+    if list_is_integer(data):
+        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(data)
     else:
-        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(sorted_data)
+        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data)
     r_mean = r_obj.r['mean']
     return float(r_mean(r_data).r_repr())
 
 
-def get_chosen_disp(sorted_data: list[int] | list[float], mean: float) -> float:
-    chosen_disp: float = sum((val-mean)**2 for val in sorted_data)/len(sorted_data)
+def get_chosen_disp(data: list[int] | list[float], mean: float) -> float:
+    chosen_disp: float = sum((val-mean)**2 for val in data)/len(data)
     return chosen_disp
 
 
