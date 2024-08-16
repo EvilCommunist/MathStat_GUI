@@ -22,8 +22,21 @@ print(variance_estimate_rounded)
 
 
 # Функция правдоподобия для распределения Пуассона
-data <- c(10, 10, 0, 15, 65, 18, 11, 12, 13, 15, 9, 7, 0, 20, 13) # for Pois must be integer!!!
+data <- c(1, 0, 1, 2, 2) # for Pois must be integer!!!
 lambda <- mean(data) # lambda can be set
 log_likelihood <- sum(dpois(data, lambda = lambda, log = TRUE))
 round(log_likelihood, 3)
+
+
+observations <- c(1, 2, 2)
+# Метод моментов
+g_x <- mean(observations)
+theta_moments <- 1 - (g_x - 1) / (2 - 1)
+# Метод максимального правдоподобия
+count_1 <- sum(observations == 1)  
+count_2 <- sum(observations == 2)  
+theta_mle <- count_1 / length(observations)
+result <- sprintf("%.2f, %.2f", theta_moments, theta_mle)
+cat(result)
+
 
