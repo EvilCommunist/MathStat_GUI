@@ -12,6 +12,10 @@ def get_variance_sample_mean(data: list[int] | list[float]) -> float:
     return disp(data, mean(data)) / len(data)
 
 
+def get_parameter_estimate(data: list[int] | list[float]) -> float:  # IDK if this one's really needed
+    return 0
+
+
 def get_pois_function_likelihood(data: list[int], lambda_value: float | None = None,
                                  is_log: bool = True) -> float | Exception:
     try:
@@ -48,7 +52,10 @@ def get_binomial_function_likelihood(data: list[int], size: float | None = None,
 
 def get_normal_function_likelihood(data: list[int] | list[float], ch_middle: float | None = None,
                                    std_deviation: float | None = None, is_log: bool = True) -> float:
-    r_data = r_obj.IntVector(data)
+    if is_int(data):
+        r_data = r_obj.IntVector(data)
+    else:
+        r_data = r_obj.FloatVector(data)
     if ch_middle is None:
         ch_middle = mean(data)
     if std_deviation is None:
