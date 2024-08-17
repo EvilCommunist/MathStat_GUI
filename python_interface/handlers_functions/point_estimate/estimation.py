@@ -1,5 +1,4 @@
 from rpy2 import robjects as r_obj
-import numpy as np
 from handlers_functions.selection.one_dim_selection import (get_chosen_middle as mean,
                                                             get_chosen_disp as disp,
                                                             list_is_integer as is_int)
