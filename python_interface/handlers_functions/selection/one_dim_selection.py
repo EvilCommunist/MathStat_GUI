@@ -21,7 +21,16 @@ def get_chosen_middle(data: list[int] | list[float]) -> float:
     return float(r_mean(r_data).r_repr())
 
 
-def get_chosen_disp(data: list[int] | list[float], mean: float) -> float:
+def get_based_chosen_disp(data: list[int] | list[float]) -> float:
+    if list_is_integer(data):
+        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(data)
+    else:
+        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data)
+    r_var = r_obj.r["var"]
+    return float(r_var(r_data).r_repr())
+
+
+def get_unbased_chosen_disp(data: list[int] | list[float], mean: float) -> float:
     chosen_disp: float = sum((val - mean) ** 2 for val in data) / len(data)
     return chosen_disp
 
@@ -38,8 +47,10 @@ def get_chosen_median(sorted_data: list[int] | list[float]) -> float | int:
     return chosen_median
 
 
-def get_quartile(sorted_data: list[int] | list[float], num_of_quantile: int = 1) -> float | int:
-    if num_of_quantile < 0 or num_of_quantile > 4:
-        print("Некорректное значение квартиля")
-        return 0
-    return sorted_data[int(len(sorted_data) * 0.25 * num_of_quantile)]
+def get_quartile(sorted_data: list[int] | list[float], num_of_quartile: int = 1) -> float | int | Exception:
+    try:
+        if num_of_quartile < 0 or num_of_quartile > 4:
+            raise Exception("Некорректное значение квартиля")
+    except Exception as ex:
+        return ex
+    return sorted_data[int(len(sorted_data) * 0.25 * num_of_quartile)]

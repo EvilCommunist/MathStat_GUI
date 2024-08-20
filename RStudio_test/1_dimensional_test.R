@@ -12,6 +12,7 @@ print(ch_mid)
 
 # Выборочная дисперсия
 print(sum((sorted_data-ch_mid)^2)/length(sorted_data))
+print(var(sorted_data))# смещённая
 
 # Выборочная медиана
 print(median(sorted_data))

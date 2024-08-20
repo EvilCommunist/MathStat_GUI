@@ -29,10 +29,11 @@ mean1 <- mean(strata1)
 mean2 <- mean(strata2)
 overall_mean <- (0.4 * mean1) + (0.6 * mean2)
 
-var1 <- var(strata1)
-var2 <- var(strata2)
-overall_variance <- (n1 * (var1 + (mean1 - overall_mean)^2) + n2 * (var2 + (mean2 - overall_mean)^2)) / (n1 + n2)
+var1 <- sum((strata1-mean1)^2)/length(strata1)
+var2 <- sum((strata2-mean2)^2)/length(strata2)
+overall_variance <- 0.4*var1 + 0.6*var2 + 0.4*(mean1 - overall_mean)^2 + 0.6*(mean2 - overall_mean)^2
 
 result <- sprintf("%.1f, %.1f", overall_mean, overall_variance)
-cat(result)# Неверный ответ!
+cat(result)
+
 
