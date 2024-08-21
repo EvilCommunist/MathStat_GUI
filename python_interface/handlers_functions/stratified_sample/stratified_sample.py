@@ -1,7 +1,5 @@
-from rpy2 import robjects as r_obj
 from handlers_functions.selection.one_dim_selection import (get_chosen_middle as mean,
-                                                            get_unbased_chosen_disp as disp,
-                                                            list_is_integer as is_int)
+                                                            get_unbased_chosen_disp as disp)
 
 
 def get_mix_mean(w_data: list[int] | list[float], a_data: list[int] | list[float]) -> float:
@@ -34,8 +32,8 @@ def get_volume_of_strata(dispersions: list[float], w_data: list[float], selectio
         list_of_sizes_n.remove(list_of_sizes_n[-1])
         list_of_sizes_n.append(selection_size - sum(list_of_sizes_n))
 
-    def convert_list(some_list):
+    def convert_list_to_tuple(some_list):
         return tuple(some_list)
-    return convert_list(list_of_sizes_n)
+    return convert_list_to_tuple(list_of_sizes_n)
 
 
