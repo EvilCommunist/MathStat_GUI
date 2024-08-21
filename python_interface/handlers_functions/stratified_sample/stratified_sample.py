@@ -25,3 +25,17 @@ def get_disp_of_strata(stratas: list[list[int]] | list[list[float]], probs: list
     mix_mean = get_mix_mean(w_data=probs, a_data=mix_means)
     answer_prefix = [disp(strata)*prob for strata, prob in zip(stratas, probs)]
     return sum(answer_prefix)+get_mix_disp(w_data=probs, a_data=mix_means, mix_mean=mix_mean)
+
+
+def get_volume_of_strata(dispersions: list[float], w_data: list[float], selection_size: int) -> tuple[int]:
+    temp_divider = sum([n_k*(d_k**0.5) for n_k, d_k in zip(w_data, dispersions)])
+    list_of_sizes_n = [int(selection_size*n_k*(d_k**0.5)/temp_divider + 0.5) for n_k, d_k in zip(w_data, dispersions)]
+    if sum(list_of_sizes_n) != selection_size:
+        list_of_sizes_n.remove(list_of_sizes_n[-1])
+        list_of_sizes_n.append(selection_size - sum(list_of_sizes_n))
+
+    def convert_list(some_list):
+        return tuple(some_list)
+    return convert_list(list_of_sizes_n)
+
+

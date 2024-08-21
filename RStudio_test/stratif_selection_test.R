@@ -37,3 +37,13 @@ result <- sprintf("%.1f, %.1f", overall_mean, overall_variance)
 cat(result)
 
 
+# Нахождение объёма выборки
+N1 <- 0.25
+N2 <- 0.75
+D1 <- 4
+D2 <- 6.25
+N <- 100
+
+n1 <- N * (N1 * sqrt(D1) / (N1 * sqrt(D1) + N2 * sqrt(D2)))
+n2 <- N - n1
+sprintf("%.0f, %.0f", n1, n2)
