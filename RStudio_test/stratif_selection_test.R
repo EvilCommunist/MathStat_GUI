@@ -19,8 +19,10 @@ cat(sprintf("%.1f, %.1f", E_X, Var_X))
 
 
 # работа со стратами
-strata1 <- c(282, 226, 188, 327, 344, 304, 414, 224, 335, 270)
-strata2 <- c(417, 851, 742, 1217, 1160, 993, 864, 852, 1286, 988)
+data <- read.table("../r_test_data/test_data_stratif_selection.txt", header = TRUE)
+
+strata1 <- data$data_x # Рост м
+strata2 <- data$data_y # Вес м
 
 n1 <- length(strata1)
 n2 <- length(strata2)
