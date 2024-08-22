@@ -1,11 +1,5 @@
 from rpy2 import robjects as r_obj
-
-
-def list_is_integer(some_list: list[int] | list[float]) -> bool:
-    for val in some_list:
-        if isinstance(val, float):
-            return False
-    return True
+from handlers_functions.standard_functions.standart_functions import list_is_integer as is_int
 
 
 def get_sort_data(data: list[int] | list[float]) -> list[int] | list[float]:
@@ -13,7 +7,7 @@ def get_sort_data(data: list[int] | list[float]) -> list[int] | list[float]:
 
 
 def get_chosen_middle(data: list[int] | list[float]) -> float:
-    if list_is_integer(data):
+    if is_int(data):
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(data)
     else:
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data)
@@ -22,7 +16,7 @@ def get_chosen_middle(data: list[int] | list[float]) -> float:
 
 
 def get_based_chosen_disp(data: list[int] | list[float]) -> float:
-    if list_is_integer(data):
+    if is_int(data):
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(data)
     else:
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data)
@@ -38,7 +32,7 @@ def get_unbased_chosen_disp(data: list[int] | list[float], mean: float | None = 
 
 
 def get_chosen_median(sorted_data: list[int] | list[float]) -> float | int:
-    if list_is_integer(sorted_data):
+    if is_int(sorted_data):
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(sorted_data)
         r_median = r_obj.r["median"]
         chosen_median: int = int(r_median(r_data).r_repr())

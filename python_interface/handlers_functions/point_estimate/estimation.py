@@ -1,7 +1,8 @@
 from rpy2 import robjects as r_obj
 from handlers_functions.selection.one_dim_selection import (get_chosen_middle as mean,
-                                                            get_unbased_chosen_disp as disp,
-                                                            list_is_integer as is_int)
+                                                            get_unbased_chosen_disp as disp)
+from handlers_functions.standard_functions.standart_functions import list_is_integer as is_int
+
 # value estimation means finding mean() from the data || оценка значения равняется поиску выборочного среднего
 r_sum = r_obj.r["sum"]  # defining global R function for processing likelihood ||
                         # определение функции R для определения правдоподобности

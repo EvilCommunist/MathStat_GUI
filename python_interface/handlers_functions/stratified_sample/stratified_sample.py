@@ -1,5 +1,6 @@
 from handlers_functions.selection.one_dim_selection import (get_chosen_middle as mean,
                                                             get_unbased_chosen_disp as disp)
+from handlers_functions.standard_functions.standart_functions import convert_list_to_tuple as ltt
 
 
 def get_mix_mean(w_data: list[int] | list[float], a_data: list[int] | list[float]) -> float:
@@ -31,9 +32,6 @@ def get_volume_of_strata(dispersions: list[float], w_data: list[float], selectio
     if sum(list_of_sizes_n) != selection_size:
         list_of_sizes_n.remove(list_of_sizes_n[-1])
         list_of_sizes_n.append(selection_size - sum(list_of_sizes_n))
-
-    def convert_list_to_tuple(some_list):
-        return tuple(some_list)
-    return convert_list_to_tuple(list_of_sizes_n)
+    return ltt(list_of_sizes_n)
 
 

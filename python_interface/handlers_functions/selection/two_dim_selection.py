@@ -1,5 +1,5 @@
 from rpy2 import robjects as r_obj
-from handlers_functions.selection.one_dim_selection import list_is_integer as is_int
+from handlers_functions.standard_functions.standart_functions import list_is_integer as is_int
 
 
 def get_cor_coef(data_fst: list[int] | list[float], data_scnd: list[int] | list[float]) -> float:
