@@ -19,7 +19,9 @@ s2 <- 1.21     # Несмещенная оценка дисперсии
 n <- 16        # Объем выборки
 alpha <- 0.05  # Уровень значимости
 s <- sqrt(s2)
+print(s)
 t_crit <- qt(1 - alpha / 2, df = n - 1)
+print(t_crit)
 
 margin_of_error <- t_crit * (s / sqrt(n))
 confidence_interval <- c(x_bar - margin_of_error, x_bar + margin_of_error)
