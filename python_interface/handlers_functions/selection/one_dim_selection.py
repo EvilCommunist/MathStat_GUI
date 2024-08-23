@@ -24,10 +24,14 @@ def get_based_chosen_disp(data: list[int] | list[float]) -> float:
     return float(r_var(r_data).r_repr())
 
 
-def get_unbased_chosen_disp(data: list[int] | list[float], mean: float | None = None) -> float:
+def get_unbased_chosen_disp(data: list[int] | list[float], mean: float | None = None,
+                            make_based: bool = False) -> float:
     if mean is None:
         mean = get_chosen_middle(data)
-    chosen_disp: float = sum((val - mean) ** 2 for val in data) / len(data)
+    if make_based:
+        chosen_disp: float = sum((val - mean) ** 2 for val in data) / (len(data)-1)
+    else:
+        chosen_disp: float = sum((val - mean) ** 2 for val in data) / len(data)
     return chosen_disp
 
 
