@@ -42,3 +42,24 @@ print(data_x, data_y)
 
 print(meand([data_x, data_y], [0.4, 0.6]))
 print(sdisp([data_x, data_y], [0.4, 0.6]))
+
+
+data_file_path = os.path.join(
+    script_dir, "../../RStudio_test/r_test_data/stratas/test_data_volume_strata.txt"
+)
+
+
+with open(data_file_path, "r") as data_file:
+    next(data_file)
+    data_n: list[int] | list[float] = []
+    data_d: list[int] | list[float] = []
+    N: int
+    for line in data_file:
+        n, d, N_data = map(float, line.split())
+        data_n.append(n)
+        data_d.append(d)
+        if N_data != 0:
+            N = int(N_data)
+
+print(data_n, data_d, N)
+print(get_vols(dispersions=data_d, w_data=data_n, selection_size=N))
