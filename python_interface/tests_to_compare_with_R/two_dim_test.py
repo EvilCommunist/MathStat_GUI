@@ -4,7 +4,7 @@ from handlers_functions.selection import two_dim_selection as two_dim_sel
 
 script_dir = os.path.dirname(__file__)
 data_file_path = os.path.join(
-    script_dir, "../../RStudio_test/r_test_data/test_data_for_2dimension.txt"
+    script_dir, "../../RStudio_test/r_test_data/selection/test_data_for_2dimension.txt"
 )
 
 with open(data_file_path, "r") as data_file:

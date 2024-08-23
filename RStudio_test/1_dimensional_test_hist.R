@@ -1,8 +1,8 @@
-file_path <- "../r_test_data/test_data_for_1dimension.txt"
+file_path <- "../r_test_data/selection/test_data_for_1dimension.txt"
 data <- scan(file_path)
 print(data)
 
-file_path_int <- "../test_data_intervals_1dim.txt"
+file_path_int <- "../r_test_data/selection/test_data_intervals_1dim.txt"
 intervals <- scan(file_path_int)
 print(intervals)
 

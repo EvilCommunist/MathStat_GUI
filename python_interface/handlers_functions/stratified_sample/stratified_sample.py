@@ -9,8 +9,8 @@ def get_mix_mean_probs(w_data: list[int] | list[float], a_data: list[int] | list
 
 
 def get_mix_mean_data(stratas: list[list[int]] | list[list[float]], probs: list[float]) -> float:
-    merged_data = [mean(strata)*prob for strata, prob in zip(stratas, probs)]
-    return sum(merged_data)
+    stratas_mean = [mean(strata) for strata in stratas]
+    return get_mix_mean_probs(w_data=probs, a_data=stratas_mean)
 
 
 def get_mix_disp(w_data: list[float], a_data: list[int] | list[float],
