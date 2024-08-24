@@ -1,6 +1,5 @@
-from handlers_functions.selection.one_dim_selection import (get_chosen_middle as mean,
-                                                            get_unbased_chosen_disp as disp)
-from handlers_functions.standard_functions.standart_functions import convert_list_to_tuple as ltt
+from handlers_functions.standard_functions.standart_functions import (convert_list_to_tuple as ltt,
+                                                                      mean, var_unbased as uvar)
 
 
 def get_mix_mean_probs(w_data: list[int] | list[float], a_data: list[int] | list[float]) -> float:
@@ -27,7 +26,7 @@ def get_mix_disp(w_data: list[float], a_data: list[int] | list[float],
 def get_disp_of_strata(stratas: list[list[int]] | list[list[float]], probs: list[float]) -> float:
     mix_means = [mean(data) for data in stratas]
     mix_mean = get_mix_mean_probs(w_data=probs, a_data=mix_means)
-    answer_prefix = [disp(strata)*prob for strata, prob in zip(stratas, probs)]
+    answer_prefix = [uvar(strata)*prob for strata, prob in zip(stratas, probs)]
     return sum(answer_prefix)+get_mix_disp(w_data=probs, a_data=mix_means, mix_mean=mix_mean)
 
 

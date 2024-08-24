@@ -6,35 +6,6 @@ def get_sort_data(data: list[int] | list[float]) -> list[int] | list[float]:
     return sorted(data)
 
 
-def get_chosen_middle(data: list[int] | list[float]) -> float:
-    if is_int(data):
-        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(data)
-    else:
-        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data)
-    r_mean = r_obj.r["mean"]
-    return float(r_mean(r_data).r_repr())
-
-
-def get_based_chosen_disp(data: list[int] | list[float]) -> float:
-    if is_int(data):
-        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(data)
-    else:
-        r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.FloatVector(data)
-    r_var = r_obj.r["var"]
-    return float(r_var(r_data).r_repr())
-
-
-def get_unbased_chosen_disp(data: list[int] | list[float], mean: float | None = None,
-                            make_based: bool = False) -> float:
-    if mean is None:
-        mean = get_chosen_middle(data)
-    if make_based:
-        chosen_disp: float = sum((val - mean) ** 2 for val in data) / (len(data)-1)
-    else:
-        chosen_disp: float = sum((val - mean) ** 2 for val in data) / len(data)
-    return chosen_disp
-
-
 def get_chosen_median(sorted_data: list[int] | list[float]) -> float | int:
     if is_int(sorted_data):
         r_data: r_obj.IntVector | r_obj.FloatVector = r_obj.IntVector(sorted_data)

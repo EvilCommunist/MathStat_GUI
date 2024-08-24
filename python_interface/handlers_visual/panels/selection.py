@@ -4,6 +4,7 @@ import sys
 import os
 
 from handlers_functions.selection.one_dim_selection import *
+from handlers_functions.standard_functions.standart_functions import *
 
 sys.path.append(os.path.abspath("python_interface/handlers_functions/selection"))
 
@@ -25,12 +26,12 @@ def open_new_window(root):
 
             data = list(map(float, input_text.split(",")))
             sorted_data = get_sort_data(data)
-            mean = get_chosen_middle(sorted_data)
-            disp = get_chosen_disp(sorted_data, mean)
+            mean1 = mean(sorted_data)
+            disp = var_unbased(sorted_data, mean1)
             median = get_chosen_median(sorted_data)
             quartile = get_quartile(sorted_data)
 
-            result_text = f"Среднее: {mean}\nДисперсия: {disp}\nМедиана: {median}\nПервый квартиль: {quartile}"
+            result_text = f"Среднее: {mean1}\nДисперсия: {disp}\nМедиана: {median}\nПервый квартиль: {quartile}"
             result_label.config(text=result_text)
 
         except Exception as e:

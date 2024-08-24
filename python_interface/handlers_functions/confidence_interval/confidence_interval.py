@@ -1,8 +1,7 @@
 from rpy2 import robjects as r_obj
 from handlers_functions.standard_functions.standart_functions import convert_list_to_tuple as ltt
-from handlers_functions.selection.one_dim_selection import (get_based_chosen_disp as bdisp,
-                                                            get_unbased_chosen_disp as udisp,
-                                                            get_chosen_middle as mean)
+from handlers_functions.standard_functions.standart_functions import (mean, var,
+                                                                      var_unbased as uvar)
 
 
 def get_inteval_borders_norm(selection_size: int, average_weight: int | float,  # use this one for bigger selections
@@ -32,9 +31,9 @@ def get_interval_borders_chisq(data: list[int] | list[float], alpha: float = 0.1
                                average_weight: int | float | None = None,) -> tuple:
     r_qchisq = r_obj.r["qchisq"]
     if average_weight is None:
-        disp = bdisp(data)
+        disp = var(data)
     else:
-        disp = udisp(data, average_weight, True)
+        disp = uvar(data, average_weight, True)
     chisq_lower = float(r_qchisq(1-alpha/2, len(data)).r_repr())
     chisq_upper = float(r_qchisq(alpha/2, len(data)).r_repr())
     lower_border = (len(data)-1)*disp / chisq_lower
