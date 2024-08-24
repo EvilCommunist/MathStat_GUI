@@ -1,7 +1,6 @@
 from rpy2 import robjects as r_obj
 from handlers_functions.standard_functions.standart_functions import convert_list_to_tuple as ltt
-from handlers_functions.standard_functions.standart_functions import (mean, var,
-                                                                      var_unbased as uvar)
+from handlers_functions.standard_functions.math_functions import (mean, var, var_unbased as uvar)
 
 
 def get_inteval_borders_norm(selection_size: int, average_weight: int | float,  # use this one for bigger selections

@@ -1,6 +1,6 @@
 import os
 from handlers_functions.selection import one_dim_selection as one_dim_sel
-from handlers_functions.standard_functions import standart_functions as base
+from handlers_functions.standard_functions import math_functions as base
 
 
 script_dir = os.path.dirname(__file__)

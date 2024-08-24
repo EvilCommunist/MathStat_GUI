@@ -4,7 +4,7 @@ import sys
 import os
 
 from handlers_functions.selection.one_dim_selection import *
-from handlers_functions.standard_functions.standart_functions import *
+from handlers_functions.standard_functions.math_functions import *
 
 sys.path.append(os.path.abspath("python_interface/handlers_functions/selection"))
 
