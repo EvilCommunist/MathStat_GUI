@@ -1,15 +1,11 @@
-from rpy2 import robjects as r_obj
-from handlers_functions.selection.one_dim_selection import (get_chosen_middle as mean,
-                                                            get_unbased_chosen_disp as disp)
-from handlers_functions.standard_functions.standart_functions import list_is_integer as is_int
-
+from handlers_functions.standard_functions.r_functions import (mean, var_unbased as uvar,
+                                                               dpois_sum, dnorm_sum, dbinom_sum,
+                                                               list_is_integer as is_int)
 # value estimation means finding mean() from the data || оценка значения равняется поиску выборочного среднего
-r_sum = r_obj.r["sum"]  # defining global R function for processing likelihood ||
-                        # определение функции R для определения правдоподобности
 
 
 def get_variance_sample_mean(data: list[int] | list[float]) -> float:
-    return disp(data, mean(data)) / len(data)
+    return uvar(data, mean(data)) / len(data)
 
 
 def get_parameter_estimate(data: list[int] | list[float]) -> float:  # IDK if this one's really needed
@@ -27,9 +23,7 @@ def get_pois_function_likelihood(data: list[int], lambda_value: float | None = N
         return ex
     if lambda_value is None:
         lambda_value = mean(data)
-    r_data = r_obj.IntVector(data)
-    r_dpois = r_obj.r["dpois"]
-    return float(r_sum(r_dpois(r_data, lambda_value, is_log)).r_repr())
+    return dpois_sum(data, lambda_value, is_log)
 
 
 def get_binomial_function_likelihood(data: list[int], size: float | None = None,
@@ -45,21 +39,11 @@ def get_binomial_function_likelihood(data: list[int], size: float | None = None,
         size = max(data)
     if prob is None:
         prob = mean(data)/size
-    r_data = r_obj.IntVector(data)
-    r_dbinom = r_obj.r["dbinom"]
-    return float(r_sum(r_dbinom(r_data, size, prob, is_log)).r_repr())
+    return dbinom_sum(data, size, prob, is_log)
 
 
 def get_normal_function_likelihood(data: list[int] | list[float], ch_middle: float | None = None,
                                    std_deviation: float | None = None, is_log: bool = True) -> float:
-    if is_int(data):
-        r_data = r_obj.IntVector(data)
-    else:
-        r_data = r_obj.FloatVector(data)
     if ch_middle is None:
         ch_middle = mean(data)
-    if std_deviation is None:
-        r_sd = r_obj.r["sd"]
-        std_deviation = r_sd(r_data)
-    r_dnorm = r_obj.r["dnorm"]
-    return float(r_sum(r_dnorm(r_data, ch_middle, std_deviation, is_log)).r_repr())
+    return dnorm_sum(data, ch_middle, std_deviation, is_log)

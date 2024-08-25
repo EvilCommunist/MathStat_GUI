@@ -1,5 +1,5 @@
 import os
-from handlers_functions.selection import two_dim_selection as two_dim_sel
+from handlers_functions.standard_functions.r_functions import get_cor_coef
 
 
 script_dir = os.path.dirname(__file__)
@@ -18,5 +18,4 @@ with open(data_file_path, "r") as data_file:
 
 print(data_x, data_y)
 
-correlation_coefficient: float = two_dim_sel.get_cor_coef(data_x, data_y)
-print(correlation_coefficient)
+print(get_cor_coef(data_x, data_y))
