@@ -1,6 +1,6 @@
 import os
 from handlers_functions.selection import one_dim_selection as one_dim_sel
-from handlers_functions.standard_functions import standart_functions as base
+from handlers_functions.standard_functions import r_functions as base
 
 
 script_dir = os.path.dirname(__file__)
@@ -17,7 +17,7 @@ sorted_data = one_dim_sel.get_sort_data(data)
 mean = base.mean(sorted_data)
 ch_disp = base.var_unbased(sorted_data, mean)
 based_ch_disp = base.var(sorted_data)
-ch_median = one_dim_sel.get_chosen_median(sorted_data)
+ch_median = base.median(sorted_data)
 fst_quartile = one_dim_sel.get_quartile(sorted_data)
 thrd_quartile = one_dim_sel.get_quartile(sorted_data, 3)
 
