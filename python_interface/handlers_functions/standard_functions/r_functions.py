@@ -1,4 +1,6 @@
 from rpy2 import robjects as r_obj
+r_sum = r_obj.r["sum"]  # defining global R function for processing likelihood ||
+                        # определение функции R для определения правдоподобности
 
 
 def rtp(some_value) -> float:  # R to Python data
@@ -49,3 +51,23 @@ def median(sorted_data: list[int] | list[float]) -> float | int:
 def get_cor_coef(data_fst: list[int] | list[float], data_scnd: list[int] | list[float]) -> float:
     r_cor = r_obj.r["cor"]
     return rtp(r_cor(ptr(data_fst), ptr(data_scnd)))
+
+
+def dpois_sum(data: list[int], lambda_value: float, is_log: bool) -> float:
+    r_dpois = r_obj.r["dpois"]
+    return rtp(r_sum(r_dpois(ptr(data), lambda_value, is_log)))
+
+
+def dbinom_sum(data: list[int], size: float, prob: float, is_log: bool) -> float:
+    r_dbinom = r_obj.r["dbinom"]
+    return rtp(r_sum(r_dbinom(ptr(data), size, prob, is_log)))
+
+
+def dnorm_sum(data: list[int] | list[float], ch_middle: float,
+              std_deviation: float, is_log: bool) -> float:
+    if std_deviation is None:
+        r_sd = r_obj.r["sd"]
+        std_deviation = r_sd(ptr(data))
+    r_dnorm = r_obj.r["dnorm"]
+    return rtp(r_sum(r_dnorm(ptr(data), ch_middle, std_deviation, is_log)))
+
