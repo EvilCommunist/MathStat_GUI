@@ -71,3 +71,17 @@ def dnorm_sum(data: list[int] | list[float], ch_middle: float,
     r_dnorm = r_obj.r["dnorm"]
     return rtp(r_sum(r_dnorm(ptr(data), ch_middle, std_deviation, is_log)))
 
+
+def qnorm(prob: float) -> float:
+    r_qnorm = r_obj.r["qnorm"]
+    return rtp(r_qnorm(prob))
+
+
+def qt(prob: float, df: int) -> float:
+    r_qt = r_obj.r["qt"]
+    return rtp(r_qt(prob, df))
+
+
+def qchisq(prob: float, df: int) -> float:
+    r_qchisq = r_obj.r["qchisq"]
+    return rtp(r_qchisq(prob, df))
