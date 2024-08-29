@@ -1,4 +1,4 @@
-data <- read.table("../r_test_data/test_data_for_2dimension.txt", header = TRUE)
+data <- read.table("../r_test_data/selection/test_data_for_2dimension.txt", header = TRUE)
 
 data_x <- data$data_x # Рост м
 data_y <- data$data_y # Вес м

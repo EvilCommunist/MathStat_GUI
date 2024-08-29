@@ -1,4 +1,4 @@
-file_path <- "../r_test_data/test_data_for_1dimension.txt"
+file_path <- "../r_test_data/selection/test_data_for_1dimension.txt"
 data <- scan(file_path)
 print(data)
 
@@ -12,6 +12,7 @@ print(ch_mid)
 
 # Выборочная дисперсия
 print(sum((sorted_data-ch_mid)^2)/length(sorted_data))
+print(var(sorted_data))# смещённая
 
 # Выборочная медиана
 print(median(sorted_data))
