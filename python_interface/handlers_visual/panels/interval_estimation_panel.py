@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import matplotlib.pyplot as plt
-from python_interface.handlers_functions.point_estimate.estimation import (
+from handlers_functions.point_estimate.estimation import (
     get_pois_function_likelihood,
     get_binomial_function_likelihood,
     get_normal_function_likelihood

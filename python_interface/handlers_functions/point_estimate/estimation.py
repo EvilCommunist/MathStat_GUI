@@ -1,4 +1,4 @@
-from python_interface.handlers_functions.standard_functions.r_functions import (mean, var_unbased as uvar,
+from handlers_functions.standard_functions.r_functions import (mean, var_unbased as uvar,
                                                                dpois_sum, dnorm_sum, dbinom_sum,
                                                                list_is_integer as is_int)
 # value estimation means finding mean() from the data || оценка значения равняется поиску выборочного среднего

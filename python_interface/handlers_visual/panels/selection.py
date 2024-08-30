@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-from python_interface.handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile
-from python_interface.handlers_functions.standard_functions.r_functions import *
-from python_interface.handlers_functions.standard_functions.standart_functions import *
+from handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile
+from handlers_functions.standard_functions.r_functions import *
+from handlers_functions.standard_functions.standart_functions import *
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 

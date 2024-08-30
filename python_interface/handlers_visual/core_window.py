@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, Menu, messagebox
-from python_interface.handlers_visual.panels.selection import open_new_window
-from python_interface.handlers_visual.panels.interval_estimation_panel import open_likelihood_window
-from python_interface.handlers_visual.panels.confidence_interval_panel import open_confidence_interval_window
+from handlers_visual.panels.selection import open_new_window
+from handlers_visual.panels.interval_estimation_panel import open_likelihood_window
+from handlers_visual.panels.confidence_interval_panel import open_confidence_interval_window
+
 
 def create_menu(root):
     style = ttk.Style()
@@ -25,6 +26,7 @@ def create_menu(root):
     file_menu.add_command(
         label="Выход", command=root.quit
     )
+
 
 def create_buttons_window(root):
     buttons_window = tk.Toplevel(root)
@@ -52,6 +54,7 @@ def create_buttons_window(root):
         button_frame, text="Расчет доверительных интервалов", command=lambda: open_confidence_interval_window(root), style='TButton'
     )
     button3.pack(pady=10, fill='x', padx=20)
+
 
 if __name__ == "__main__":
     root = tk.Tk()

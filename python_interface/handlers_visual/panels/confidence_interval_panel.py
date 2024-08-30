@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from python_interface.handlers_functions.confidence_interval.confidence_interval import *
+from handlers_functions.confidence_interval.confidence_interval import *
 
 def open_confidence_interval_window(root):
     new_window = tk.Toplevel(root)

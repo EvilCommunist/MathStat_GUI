@@ -1,5 +1,5 @@
-from python_interface.handlers_functions.standard_functions.standart_functions import convert_list_to_tuple as ltt
-from python_interface.handlers_functions.standard_functions.r_functions import mean, var_unbased as uvar
+from handlers_functions.standard_functions.standart_functions import convert_list_to_tuple as ltt
+from handlers_functions.standard_functions.r_functions import mean, var_unbased as uvar
 
 
 def get_mix_mean_probs(w_data: list[int] | list[float], a_data: list[int] | list[float]) -> float:
