@@ -8,6 +8,7 @@ from handlers_functions.point_estimate.estimation import (
     get_normal_function_likelihood
 )
 
+
 def open_likelihood_window(root):
     new_window = tk.Toplevel(root)
     new_window.title("Расчет правдоподобия")
@@ -130,6 +131,7 @@ def open_likelihood_window(root):
         button_frame.columnconfigure(i, weight=1)
 
     plot_empty_histogram()
+
 
 if __name__ == "__main__":
     root = tk.Tk()

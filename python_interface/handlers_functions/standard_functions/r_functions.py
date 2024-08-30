@@ -1,17 +1,11 @@
 from rpy2 import robjects as r_obj
+from standart_functions import list_is_integer
 r_sum = r_obj.r["sum"]  # defining global R function for processing likelihood ||
                         # определение функции R для определения правдоподобности
 
 
 def rtp(some_value) -> float:  # R to Python data
     return float(some_value.r_repr())
-
-
-def list_is_integer(some_list: list[int] | list[float]) -> bool:
-    for val in some_list:
-        if isinstance(val, float):
-            return False
-    return True
 
 
 def ptr(some_list: list[int] | list[float]) -> r_obj.IntVector | r_obj.FloatVector:  # Python to R data

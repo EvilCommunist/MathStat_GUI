@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from handlers_functions.confidence_interval.confidence_interval import *
 
+
 def open_confidence_interval_window(root):
     new_window = tk.Toplevel(root)
     new_window.title("Расчет доверительных интервалов")
@@ -97,6 +98,7 @@ def open_confidence_interval_window(root):
 
     frame.grid_columnconfigure(2, weight=1)
     frame.grid_rowconfigure(7, weight=1)
+
 
 if __name__ == "__main__":
     root = tk.Tk()

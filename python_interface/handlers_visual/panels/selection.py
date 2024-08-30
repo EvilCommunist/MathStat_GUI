@@ -6,6 +6,7 @@ from handlers_functions.standard_functions.standart_functions import *
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
+
 def open_new_window(root):
     new_window = tk.Toplevel(root)
     new_window.title("Выборка")
@@ -106,6 +107,7 @@ def create_one_dim_tab(tab):
     toolbar.update()
     toolbar.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
+
 def create_two_dim_tab(tab):
     vector_x_label = ttk.Label(tab, text="Введите числа для X через запятую:", font=("Helvetica", 12))
     vector_x_label.pack(pady=5)
@@ -203,6 +205,7 @@ def create_two_dim_tab(tab):
     toolbar = NavigationToolbar2Tk(canvas, tab)
     toolbar.update()
     toolbar.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
