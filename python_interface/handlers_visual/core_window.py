@@ -21,6 +21,10 @@ def create_menu(root):
     file_menu.add_command(
         label="Предметная область", command=lambda: create_buttons_window(root)
     )
+    file_menu.add_separator()
+    file_menu.add_command(
+        label="Выход", command=root.quit
+    )
 
 def create_buttons_window(root):
     buttons_window = tk.Toplevel(root)

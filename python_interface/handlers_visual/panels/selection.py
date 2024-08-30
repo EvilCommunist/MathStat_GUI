@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-from python_interface.handlers_functions.selection.one_dim_selection import *
+from python_interface.handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile
 from python_interface.handlers_functions.standard_functions.r_functions import *
 from python_interface.handlers_functions.standard_functions.standart_functions import *
 import matplotlib.pyplot as plt
@@ -57,11 +57,11 @@ def create_one_dim_tab(tab):
 
         try:
             data = list(map(float, input_text.split(",")))
-            sorted_data = sorted(data)
+            sorted_data = get_sort_data(data)
             mean_value = mean(sorted_data)
             variance = var_unbased(sorted_data)
             median_value = median(sorted_data)
-            quartile = sorted_data[len(sorted_data) // 4]
+            quartile = get_quartile(sorted_data)
 
             result_text = f"Среднее: {mean_value:.2f}\nДисперсия: {variance:.2f}\nМедиана: {median_value:.2f}\nПервый квартиль: {quartile:.2f}"
             result_label.config(text=result_text)

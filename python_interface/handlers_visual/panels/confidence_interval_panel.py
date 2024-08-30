@@ -1,11 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from python_interface.handlers_functions.confidence_interval.confidence_interval import *
 
 def open_confidence_interval_window(root):
     new_window = tk.Toplevel(root)
     new_window.title("Расчет доверительных интервалов")
-    new_window.geometry("600x600")
+    new_window.geometry("800x600")
     new_window.configure(background='white')
 
     frame = ttk.Frame(new_window, padding="10")
@@ -49,8 +51,28 @@ def open_confidence_interval_window(root):
             else:
                 result = "Неизвестная функция"
             result_label.config(text=f"Результат: {result}")
+            update_plot(data, result)
         except Exception as e:
             messagebox.showerror("Ошибка", str(e))
+
+    def update_plot(data, result):
+        if isinstance(result, tuple) and len(result) == 2:
+            left, right = result
+        else:
+            left, right = min(data), max(data)
+
+        fig, ax = plt.subplots(figsize=(5, 4), dpi=100)
+        ax.axvline(x=left, color='red', linestyle='--', label='Левая граница')
+        ax.axvline(x=right, color='green', linestyle='--', label='Правая граница')
+        ax.axvspan(left, right, color='yellow', alpha=0.3)
+        ax.legend()
+
+        for widget in plot_frame.winfo_children():
+            widget.destroy()
+
+        canvas = FigureCanvasTkAgg(fig, master=plot_frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
@@ -67,5 +89,17 @@ def open_confidence_interval_window(root):
     error_button = ttk.Button(frame, text="Расчет для оценки ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))
     error_button.grid(row=6, column=0, pady=10, sticky="w")
 
+    plot_frame = ttk.Frame(frame)
+    plot_frame.grid(row=0, column=2, rowspan=7, padx=20, pady=10, sticky="nsew")
+
     for child in frame.winfo_children():
         child.grid_configure(padx=5, pady=5)
+
+    frame.grid_columnconfigure(2, weight=1)
+    frame.grid_rowconfigure(7, weight=1)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    button = ttk.Button(root, text="Открыть окно расчета доверительных интервалов", command=lambda: open_confidence_interval_window(root))
+    button.pack(pady=20)
+    root.mainloop()
