@@ -25,6 +25,7 @@ def open_new_window(root):
     create_one_dim_tab(tab1)
     create_two_dim_tab(tab2)
 
+
 def create_one_dim_tab(tab):
     vector_1_label = ttk.Label(tab, text="Введите числа через запятую:", font=("Helvetica", 12))
     vector_1_label.pack(pady=5)

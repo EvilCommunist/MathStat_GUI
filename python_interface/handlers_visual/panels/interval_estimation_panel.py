@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 from handlers_functions.point_estimate.estimation import (
     get_pois_function_likelihood,
     get_binomial_function_likelihood,
-    get_normal_function_likelihood
+    get_normal_function_likelihood,
+    get_variance_sample_mean as var_smean
 )
 
 
@@ -88,13 +89,17 @@ def open_likelihood_window(root):
 
             if distribution == "poisson":
                 result = get_pois_function_likelihood(data)
+                variance_mean = var_smean(data)
             elif distribution == "binomial":
                 result = get_binomial_function_likelihood(data)
+                variance_mean = var_smean(data)
             elif distribution == "normal":
                 result = get_normal_function_likelihood(data)
+                variance_mean = var_smean(data)
             else:
                 result = "Неизвестное распределение"
-            result_label.config(text=f"Результат: {result}")
+                variance_mean = "распределение не определено"
+            result_label.config(text=f"Оценка правдоподобия: {result}, дисперсия выборочного среднего: {variance_mean}")
         except Exception as e:
             messagebox.showerror("Ошибка", str(e))
 
