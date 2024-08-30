@@ -33,12 +33,18 @@ def create_buttons_window(root):
     buttons_window.title("Предметная область")
     buttons_window.attributes('-fullscreen', True)
     buttons_window.configure(background='white')
+    buttons_window.transient(root)
 
     button_frame = ttk.Frame(buttons_window, style='TFrame')
     button_frame.pack(pady=50)
 
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
+
+    def close_escape(event=None):  # Сделал выход по эскейпу, потому что пока-что иначе работать на винде невозможно
+        print("escaped")
+        root.destroy()
+    root.bind("<Escape>", close_escape)
 
     button1 = ttk.Button(
         button_frame, text="Выборка", command=lambda: open_new_window(root), style='TButton'
