@@ -1,4 +1,5 @@
 #  Enter all standard functions here
+import enum
 
 
 def list_is_integer(some_list: list[int] | list[float]) -> bool:
@@ -10,3 +11,9 @@ def list_is_integer(some_list: list[int] | list[float]) -> bool:
 
 def convert_list_to_tuple(some_list) -> tuple:
     return tuple(some_list)
+
+
+class Rtype(enum.Enum):
+    norm: str = "norm"
+    binom: str = "binom"
+    pois: str = "pois"

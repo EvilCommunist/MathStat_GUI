@@ -1,5 +1,8 @@
+import re
 from rpy2 import robjects as r_obj
-from handlers_functions.standard_functions.standart_functions import list_is_integer
+from handlers_functions.standard_functions.standart_functions import (list_is_integer,
+                                                                      convert_list_to_tuple as ltt,
+                                                                      Rtype)
 r_sum = r_obj.r["sum"]  # defining global R function for processing likelihood ||
                         # определение функции R для определения правдоподобности
 
@@ -14,6 +17,19 @@ def ptr(some_list: list[int] | list[float]) -> r_obj.IntVector | r_obj.FloatVect
     else:
         r_data = r_obj.FloatVector(some_list)
     return r_data
+
+
+def generate_ideal_data(data: list[int] | list[float], rtype: str):
+    match rtype:
+        case Rtype.pois.value:
+            generated_data = r_obj.r["rpois"](len(data), mean(data))
+            return generated_data
+        case Rtype.norm.value:
+            generated_data = r_obj.r["rnorm"](len(data), mean(data), var(data) ** 0.5)
+            return generated_data
+        case Rtype.binom.value:
+            generated_data = r_obj.r["rbinom"](len(data), max(data), 0.5)
+            return generated_data
 
 
 def mean(data: list[int] | list[float]) -> float:
@@ -45,6 +61,23 @@ def median(sorted_data: list[int] | list[float]) -> float | int:
 def get_cor_coef(data_fst: list[int] | list[float], data_scnd: list[int] | list[float]) -> float:
     r_cor = r_obj.r["cor"]
     return rtp(r_cor(ptr(data_fst), ptr(data_scnd)))
+
+
+def kol_smir_test(data: list[int] | list[float], rtype: str) -> tuple:
+    r_ks = r_obj.r["ks.test"]
+    generated_data = generate_ideal_data(data, rtype)
+    try:
+        res = r_ks(ptr(data), generated_data).r_repr()
+
+        d_value = re.search(r'D = ([0-9.]+)', res)
+        d_value = float(d_value.group(1)) if d_value else None
+
+        p_value = re.search(r'p\.value = ([0-9.]+)', res)
+        p_value = float(p_value.group(1)) if p_value else None
+    except Exception as ex:
+        print("Указано неизвестное распределение")
+    return ltt([d_value, p_value])  # D - указывает на достоверность анализа (чем ближе к 1, тем меньше гарантия)
+                                    # p - указывает на схожесть между выборками, чем ближе к 1, тем больше схожесть
 
 
 def dpois_sum(data: list[int], lambda_value: float, is_log: bool) -> float:
