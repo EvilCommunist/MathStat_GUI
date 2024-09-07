@@ -11,25 +11,18 @@ def rtp(some_value) -> float:  # R to Python data
     return float(some_value.r_repr())
 
 
+def rtp_list_to_list(some_r_list: r_obj.FloatVector | r_obj.IntVector) -> list:
+    values = re.findall(r"[-+]?\d*\.\d+|\d+", some_r_list.r_repr())
+    python_list = list(map(float, values))
+    return python_list
+
+
 def ptr(some_list: list[int] | list[float]) -> r_obj.IntVector | r_obj.FloatVector:  # Python to R data
     if list_is_integer(some_list):
         r_data = r_obj.IntVector(some_list)
     else:
         r_data = r_obj.FloatVector(some_list)
     return r_data
-
-
-def generate_ideal_data(data: list[int] | list[float], rtype: str):
-    match rtype:
-        case Rtype.pois.value:
-            generated_data = r_obj.r["rpois"](len(data), mean(data))
-            return generated_data
-        case Rtype.norm.value:
-            generated_data = r_obj.r["rnorm"](len(data), mean(data), var(data) ** 0.5)
-            return generated_data
-        case Rtype.binom.value:
-            generated_data = r_obj.r["rbinom"](len(data), max(data), 0.5)
-            return generated_data
 
 
 def mean(data: list[int] | list[float]) -> float:
@@ -40,6 +33,19 @@ def mean(data: list[int] | list[float]) -> float:
 def var(data: list[int] | list[float]) -> float:
     r_var = r_obj.r["var"]
     return rtp(r_var(ptr(data)))
+
+
+def generate_ideal_data(data: list[int] | list[float], rtype: str):
+    match rtype:
+        case Rtype.pois.value:
+            generated_data = r_obj.r["rpois"](len(data), mean(data))
+            return rtp_list_to_list(generated_data)
+        case Rtype.norm.value:
+            generated_data = r_obj.r["rnorm"](len(data), mean(data), var(data) ** 0.5)
+            return rtp_list_to_list(generated_data)
+        case Rtype.binom.value:
+            generated_data = r_obj.r["rbinom"](len(data), max(data), 0.5)
+            return rtp_list_to_list(generated_data)
 
 
 def var_unbased(data: list[int] | list[float], chosen_middle: float | None = None,  # Not R function, anyway it is
@@ -67,7 +73,7 @@ def kol_smir_test(data: list[int] | list[float], rtype: str) -> tuple:
     r_ks = r_obj.r["ks.test"]
     generated_data = generate_ideal_data(data, rtype)
     try:
-        res = r_ks(ptr(data), generated_data).r_repr()
+        res = r_ks(ptr(data), ptr(generated_data)).r_repr()
 
         d_value = re.search(r'D = ([0-9.]+)', res)
         d_value = float(d_value.group(1)) if d_value else None
