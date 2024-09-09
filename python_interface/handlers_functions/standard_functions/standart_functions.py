@@ -15,5 +15,9 @@ def convert_list_to_tuple(some_list) -> tuple:
 
 class Rtype(enum.Enum):
     norm: str = "norm"
-    binom: str = "binom"
     pois: str = "pois"
+    binom: str = "binom"
+
+    @classmethod
+    def get_values(cls):
+        return list(map(lambda c: c.value, cls))
