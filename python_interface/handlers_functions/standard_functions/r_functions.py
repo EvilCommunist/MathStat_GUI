@@ -38,13 +38,13 @@ def var(data: list[int] | list[float]) -> float:
 def generate_ideal_data(data: list[int] | list[float], rtype: str):
     match rtype:
         case Rtype.pois.value:
-            generated_data = r_obj.r["rpois"](len(data), mean(data))
+            generated_data = r_obj.r["rpois"](len(data), 1)
             return rtp_list_to_list(generated_data)
         case Rtype.norm.value:
-            generated_data = r_obj.r["rnorm"](len(data), mean(data), var(data) ** 0.5)
+            generated_data = r_obj.r["rnorm"](len(data), 0, 1)
             return rtp_list_to_list(generated_data)
         case Rtype.binom.value:
-            generated_data = r_obj.r["rbinom"](len(data), max(data), 0.5)
+            generated_data = r_obj.r["rbinom"](len(data), 100, 0.5)
             return rtp_list_to_list(generated_data)
 
 
