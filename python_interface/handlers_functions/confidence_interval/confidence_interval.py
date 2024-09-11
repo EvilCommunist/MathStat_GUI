@@ -3,8 +3,8 @@ from handlers_functions.standard_functions.r_functions import (mean, var, var_un
                                                                qnorm, qt, qchisq)
 
 
-def get_inteval_borders_norm(selection_size: int, average_weight: int | float,  # use this one for bigger selections
-                             std_deviation: int | float, confidence_prob: float = 0.95) -> tuple[float]:
+def get_mean_inteval_borders_norm(selection_size: int, average_weight: int | float,  # use this one for bigger selections
+                                  std_deviation: int | float, confidence_prob: float = 0.95) -> tuple[float]:
     standard_error = std_deviation/(selection_size**0.5)
     alpha = 1-confidence_prob
     z_crit = qnorm(1-alpha/2)
@@ -13,8 +13,8 @@ def get_inteval_borders_norm(selection_size: int, average_weight: int | float,  
     return ltt([lower_border, upper_border])
 
 
-def get_interval_borders_t(selection_size: int, average_weight: int | float,  # use this one for lesser selections
-                           unbased_disp: float, alpha: float = 0.1) -> tuple:
+def get_mean_interval_borders_t(selection_size: int, average_weight: int | float,  # use this one for lesser selections
+                                unbased_disp: float, alpha: float = 0.1) -> tuple:
     standard_dev = unbased_disp**0.5
     t_crit = qt(1-alpha/2, selection_size-1)
     lower_border = average_weight - t_crit * (standard_dev/(selection_size**0.5))
@@ -22,8 +22,8 @@ def get_interval_borders_t(selection_size: int, average_weight: int | float,  # 
     return ltt([lower_border, upper_border])
 
 
-def get_interval_borders_chisq(data: list[int] | list[float], alpha: float = 0.1,   # use this one for data based selections mostly
-                               average_weight: int | float | None = None,) -> tuple:
+def get_variance_interval_borders_chisq(data: list[int] | list[float], alpha: float = 0.1,
+                                        average_weight: int | float | None = None,) -> tuple:
     if average_weight is None:
         disp = var(data)
     else:

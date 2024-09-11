@@ -41,11 +41,11 @@ def open_confidence_interval_window(root):
         input_text = data_entry.get()
         try:
             data = list(map(float, input_text.split(",")))
-            if func == get_inteval_borders_norm:
+            if func == get_mean_inteval_borders_norm:
                 result = func(selection_size=len(data), average_weight=mean(data), std_deviation=uvar(data, mean(data))**0.5)
-            elif func == get_interval_borders_t:
+            elif func == get_mean_interval_borders_t:
                 result = func(selection_size=len(data), average_weight=mean(data), unbased_disp=uvar(data, mean(data)))
-            elif func == get_interval_borders_chisq:
+            elif func == get_variance_interval_borders_chisq:
                 result = func(data=data)
             elif func == get_error_estimation:
                 result = func(data=data)
@@ -78,13 +78,13 @@ def open_confidence_interval_window(root):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    norm_button = ttk.Button(frame, text="Расчет для нормального распределения", command=lambda: calculate_confidence_interval(get_inteval_borders_norm))
+    norm_button = ttk.Button(frame, text="Расчет для нормального распределения", command=lambda: calculate_confidence_interval(get_mean_inteval_borders_norm))
     norm_button.grid(row=3, column=0, pady=10, sticky="w")
 
-    t_button = ttk.Button(frame, text="Расчет для t-распределения", command=lambda: calculate_confidence_interval(get_interval_borders_t))
+    t_button = ttk.Button(frame, text="Расчет для t-распределения", command=lambda: calculate_confidence_interval(get_mean_interval_borders_t))
     t_button.grid(row=4, column=0, pady=10, sticky="w")
 
-    chisq_button = ttk.Button(frame, text="Расчет для chi-squared распределения", command=lambda: calculate_confidence_interval(get_interval_borders_chisq))
+    chisq_button = ttk.Button(frame, text="Расчет для chi-squared распределения", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
     chisq_button.grid(row=5, column=0, pady=10, sticky="w")
 
     error_button = ttk.Button(frame, text="Расчет для оценки ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))

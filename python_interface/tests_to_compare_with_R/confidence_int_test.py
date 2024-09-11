@@ -1,8 +1,8 @@
 import os
 from handlers_functions.confidence_interval.confidence_interval import (get_error_estimation as err_est,
-                                                                        get_interval_borders_chisq as ibchisq,
-                                                                        get_interval_borders_t as ib_t,
-                                                                        get_inteval_borders_norm as ib_norm)
+                                                                        get_variance_interval_borders_chisq as ibchisq,
+                                                                        get_mean_interval_borders_t as ib_t,
+                                                                        get_mean_inteval_borders_norm as ib_norm)
 
 
 script_dir = os.path.dirname(__file__)
