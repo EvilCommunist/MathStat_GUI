@@ -69,8 +69,6 @@ def create_one_dim_tab(tab):
             result_label.config(text=result_text)
 
             intervals = get_intervals(data)
-            # intervals = int(sqrt(len(sorted_data)))
-            # intervals = int(log2(len(sorted_data)+1)))
             # Plot histogram
             fig, ax = plt.subplots(figsize=(5, 4))
             ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')

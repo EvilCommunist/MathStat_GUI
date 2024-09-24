@@ -10,11 +10,11 @@ def get_intervals(data: list[int] | list[float]) -> int:
 
 
 def get_intervals1(data: list[int] | list[float]) -> int:
-    return int(5*lg(len(data)))
+    return int(sqrt(len(data)))
 
 
 def get_intervals2(data: list[int] | list[float]) -> int:
-    return int(5*lg(len(data)))
+    return int(log2(len(data)+1))
 
 
 def get_quartile(sorted_data: list[int] | list[float], num_of_quartile: int = 1) -> float | int | Exception:
