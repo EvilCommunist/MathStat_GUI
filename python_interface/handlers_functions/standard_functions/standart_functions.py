@@ -1,5 +1,6 @@
 #  Enter all standard functions here
 import enum
+from math import log10 as lg, log2, sqrt
 
 
 def list_is_integer(some_list: list[int] | list[float]) -> bool:

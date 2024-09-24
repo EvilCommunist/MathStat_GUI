@@ -1,8 +1,6 @@
-from math import sqrt
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-from math import log10 as lg, log2
-from handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile
+from handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile, get_intervals
 from handlers_functions.standard_functions.r_functions import *
 from handlers_functions.standard_functions.standart_functions import *
 import matplotlib.pyplot as plt
@@ -70,7 +68,7 @@ def create_one_dim_tab(tab):
             result_text = f"Среднее: {mean_value:.2f}\nДисперсия: {variance:.2f}\nМедиана: {median_value:.2f}\nПервый квартиль: {quartile:.2f}"
             result_label.config(text=result_text)
 
-            intervals = int(5*lg(len(sorted_data)))
+            intervals = get_intervals(data)
             # intervals = int(sqrt(len(sorted_data)))
             # intervals = int(log2(len(sorted_data)+1)))
             # Plot histogram
@@ -158,18 +156,23 @@ def create_two_dim_tab(tab):
         try:
             data_x = list(map(float, input_text_x.split(",")))
             data_y = list(map(float, input_text_y.split(",")))
+            sdata_x = get_sort_data(data_x)
+            sdata_y = get_sort_data(data_y)
             cor_coef = get_cor_coef(data_x, data_y)
+
+            int_x = get_intervals(data_x)
+            int_y = get_intervals(data_y)
 
             result_text = f"Коэффициент корреляции: {cor_coef:.2f}"
             result_label.config(text=result_text)
 
             fig, axs = plt.subplots(1, 2, figsize=(10, 4))
-            axs[0].hist(data_x, bins=10, edgecolor='black')
+            axs[0].hist(data_x, bins=int_x, range=(sdata_x[0], sdata_x[-1]), edgecolor='black')
             axs[0].set_title('Гистограмма данных X')
             axs[0].set_xlabel('Значения')
             axs[0].set_ylabel('Частота')
 
-            axs[1].hist(data_y, bins=10, edgecolor='black')
+            axs[1].hist(data_y, bins=int_y, range=(sdata_y[0], sdata_y[-1]), edgecolor='black')
             axs[1].set_title('Гистограмма данных Y')
             axs[1].set_xlabel('Значения')
             axs[1].set_ylabel('Частота')

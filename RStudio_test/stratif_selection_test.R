@@ -43,3 +43,14 @@ cat(n_vec,"\n", d_vec,"\n", N)
 n1 <- N[1]*(n_vec[1]*sqrt(d_vec[1])/(n_vec[1]*sqrt(d_vec[1])+(n_vec[2]*sqrt(d_vec[2]))))
 n2 <- N - n1
 sprintf("%.0f, %.0f", n1, n2)
+
+
+# Задаем параметры
+n <- 25  # объем выборки
+mu0 <- 0  # нулевая гипотеза: мат. ожидание = 0
+x_bar <- 0.85  # выборочное среднее
+sigma <- 2  # корень из дисперсии (так как дисперсия известна и равна 4)
+std_error <- sigma / sqrt(n)
+z <- (x_bar - mu0) / std_error
+p_value <- 1 - pnorm(z)
+p_value
