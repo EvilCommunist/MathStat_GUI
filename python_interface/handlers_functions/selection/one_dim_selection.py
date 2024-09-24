@@ -9,7 +9,7 @@ def get_intervals(data: list[int] | list[float]) -> int:
     return int(5*lg(len(data)))
 
 
-def get_intervals1(data: list[int] | list[float]) -> int:
+def get_intervals1(data: list[int] | list[float]) -> int:  # Сделать возможность выбора функции рассчёта
     return int(sqrt(len(data)))
 
 
