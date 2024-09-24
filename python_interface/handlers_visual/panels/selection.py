@@ -1,5 +1,7 @@
+import math
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
+from math import log10 as lg
 from handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile
 from handlers_functions.standard_functions.r_functions import *
 from handlers_functions.standard_functions.standart_functions import *
@@ -68,9 +70,11 @@ def create_one_dim_tab(tab):
             result_text = f"Среднее: {mean_value:.2f}\nДисперсия: {variance:.2f}\nМедиана: {median_value:.2f}\nПервый квартиль: {quartile:.2f}"
             result_label.config(text=result_text)
 
+            intervals = int(5*lg(len(sorted_data)))
+            #intervals = int(math.sqrt(len(sorted_data)))
             # Plot histogram
             fig, ax = plt.subplots(figsize=(5, 4))
-            ax.hist(sorted_data, bins=10, edgecolor='black')
+            ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
             ax.set_title('Гистограмма данных')
             ax.set_xlabel('Значения')
             ax.set_ylabel('Частота')
