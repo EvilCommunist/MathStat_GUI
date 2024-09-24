@@ -1,7 +1,7 @@
-import math
+from math import sqrt
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-from math import log10 as lg
+from math import log10 as lg, log2
 from handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile
 from handlers_functions.standard_functions.r_functions import *
 from handlers_functions.standard_functions.standart_functions import *
@@ -71,7 +71,8 @@ def create_one_dim_tab(tab):
             result_label.config(text=result_text)
 
             intervals = int(5*lg(len(sorted_data)))
-            #intervals = int(math.sqrt(len(sorted_data)))
+            # intervals = int(sqrt(len(sorted_data)))
+            # intervals = int(log2(len(sorted_data)+1)))
             # Plot histogram
             fig, ax = plt.subplots(figsize=(5, 4))
             ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
