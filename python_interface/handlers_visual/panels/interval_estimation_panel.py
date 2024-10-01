@@ -8,6 +8,7 @@ from handlers_functions.point_estimate.estimation import (
     get_normal_function_likelihood,
     get_variance_sample_mean as var_smean
 )
+from handlers_functions.selection.one_dim_selection import get_intervals, get_sort_data
 
 
 def open_likelihood_window(root):
@@ -68,8 +69,10 @@ def open_likelihood_window(root):
 
     def plot_histogram(data):
         ax.clear()
+        sorted_data = get_sort_data(data)
+        intervals = get_intervals(data)
         ax.axhline(0, color='black', linewidth=0.8)
-        ax.hist(data, bins=10, edgecolor='black')
+        ax.hist(data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
         ax.set_xlabel('Значения')
         ax.set_ylabel('Частота')
         ax.set_ylim(bottom=0)
