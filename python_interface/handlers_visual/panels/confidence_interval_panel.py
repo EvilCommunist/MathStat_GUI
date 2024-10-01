@@ -3,6 +3,7 @@ from tkinter import ttk, filedialog, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from handlers_functions.confidence_interval.confidence_interval import *
+from handlers_functions.standard_functions.r_functions import var_unbased as uvar, mean
 
 
 def open_confidence_interval_window(root):
@@ -41,10 +42,10 @@ def open_confidence_interval_window(root):
         input_text = data_entry.get()
         try:
             data = list(map(float, input_text.split(",")))
-            if func == get_mean_inteval_borders_norm:
-                result = func(selection_size=len(data), average_weight=mean(data), std_deviation=uvar(data, mean(data))**0.5)
-            elif func == get_mean_interval_borders_t:
-                result = func(selection_size=len(data), average_weight=mean(data), unbased_disp=uvar(data, mean(data)))
+            if func == "get_mean" and len(data) < 35:
+                result = get_mean_interval_borders_t(selection_size=len(data), average_weight=mean(data), unbased_disp=uvar(data, mean(data)))
+            elif func == "get_mean" and len(data) >= 35:
+                result = get_mean_inteval_borders_norm(selection_size=len(data), average_weight=mean(data), std_deviation=uvar(data, mean(data))**0.5)
             elif func == get_variance_interval_borders_chisq:
                 result = func(data=data)
             elif func == get_error_estimation:
@@ -57,13 +58,19 @@ def open_confidence_interval_window(root):
             messagebox.showerror("Ошибка", str(e))
 
     def update_plot(data, result):
-        if isinstance(result, tuple) and len(result) == 2:
-            left, right = result
+        if isinstance(result, tuple) and (len(result) == 2 or len(result) == 3):
+            left = result[0]
+            right = result[1]
         else:
             left, right = min(data), max(data)
 
         fig, ax = plt.subplots(figsize=(5, 4), dpi=100)
         ax.axvline(x=left, color='red', linestyle='--', label='Левая граница')
+        if len(result) == 3:
+            if result[2] == "mean":
+                ax.axvline(x=mean(data), color='blue', linestyle='--', label='Оценка среднего')
+            elif result[2] == "var":
+                ax.axvline(x=uvar(data), color='blue', linestyle='--', label='Оценка дисперсии')
         ax.axvline(x=right, color='green', linestyle='--', label='Правая граница')
         ax.axvspan(left, right, color='yellow', alpha=0.3)
         ax.legend()
@@ -78,17 +85,15 @@ def open_confidence_interval_window(root):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    norm_button = ttk.Button(frame, text="Расчет для нормального распределения", command=lambda: calculate_confidence_interval(get_mean_inteval_borders_norm))
+    norm_button = ttk.Button(frame, text="Расчет для выборочного среднего", command=lambda:
+        calculate_confidence_interval("get_mean"))
     norm_button.grid(row=3, column=0, pady=10, sticky="w")
 
-    t_button = ttk.Button(frame, text="Расчет для t-распределения", command=lambda: calculate_confidence_interval(get_mean_interval_borders_t))
-    t_button.grid(row=4, column=0, pady=10, sticky="w")
-
-    chisq_button = ttk.Button(frame, text="Расчет для chi-squared распределения", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
-    chisq_button.grid(row=5, column=0, pady=10, sticky="w")
+    chisq_button = ttk.Button(frame, text="Расчет для дисперсии", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
+    chisq_button.grid(row=4, column=0, pady=10, sticky="w")
 
     error_button = ttk.Button(frame, text="Расчет для оценки ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))
-    error_button.grid(row=6, column=0, pady=10, sticky="w")
+    error_button.grid(row=5, column=0, pady=10, sticky="w")
 
     plot_frame = ttk.Frame(frame)
     plot_frame.grid(row=0, column=2, rowspan=7, padx=20, pady=10, sticky="nsew")
