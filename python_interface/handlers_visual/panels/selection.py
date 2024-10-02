@@ -27,7 +27,7 @@ def open_new_window(root):
 
 
 def create_one_dim_tab(tab):
-    vector_1_label = ttk.Label(tab, text="Введите числа через запятую:", font=("Helvetica", 12))
+    vector_1_label = ttk.Label(tab, text="Введите элементы выборки через запятую:", font=("Helvetica", 12))
     vector_1_label.pack(pady=5)
 
     input_frame = ttk.Frame(tab)
@@ -44,7 +44,7 @@ def create_one_dim_tab(tab):
                 vector_1.delete(0, tk.END)
                 vector_1.insert(0, data)
 
-    load_button = ttk.Button(input_frame, text="Загрузить из файла", command=load_from_file)
+    load_button = ttk.Button(input_frame, text="Загрузить элементы выборки из файла", command=load_from_file)
     load_button.pack(side=tk.LEFT, padx=10)
 
     result_label = ttk.Label(tab, text="Результаты будут отображены здесь", font=("Helvetica", 12))
@@ -72,7 +72,7 @@ def create_one_dim_tab(tab):
             # Plot histogram
             fig, ax = plt.subplots(figsize=(5, 4))
             ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
-            ax.set_title('Гистограмма данных')
+            ax.set_title('Гистограмма')
             ax.set_xlabel('Значения')
             ax.set_ylabel('Частота')
 
@@ -97,7 +97,7 @@ def create_one_dim_tab(tab):
 
     fig, ax = plt.subplots(figsize=(5, 4))
     ax.hist([], bins=10, edgecolor='black')
-    ax.set_title('Гистограмма данных')
+    ax.set_title('Гистограмма')
     ax.set_xlabel('Значения')
     ax.set_ylabel('Частота')
 
@@ -111,13 +111,13 @@ def create_one_dim_tab(tab):
 
 
 def create_two_dim_tab(tab):
-    vector_x_label = ttk.Label(tab, text="Введите числа для X через запятую:", font=("Helvetica", 12))
+    vector_x_label = ttk.Label(tab, text="Введите элементы выборки 1 через запятую:", font=("Helvetica", 12))
     vector_x_label.pack(pady=5)
 
     vector_x = ttk.Entry(tab, width=50)
     vector_x.pack(padx=30, pady=10)
 
-    vector_y_label = ttk.Label(tab, text="Введите числа для Y через запятую:", font=("Helvetica", 12))
+    vector_y_label = ttk.Label(tab, text="Введите элементы выборки 2 через запятую:", font=("Helvetica", 12))
     vector_y_label.pack(pady=5)
 
     vector_y = ttk.Entry(tab, width=50)
@@ -143,7 +143,7 @@ def create_two_dim_tab(tab):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    load_button = ttk.Button(tab, text="Загрузить из файла", command=load_from_file, style="TButton")
+    load_button = ttk.Button(tab, text="Загрузить элементы выборок из файла", command=load_from_file, style="TButton")
     load_button.pack(pady=10)
 
     def starter():
@@ -166,12 +166,12 @@ def create_two_dim_tab(tab):
 
             fig, axs = plt.subplots(1, 2, figsize=(10, 4))
             axs[0].hist(data_x, bins=int_x, range=(sdata_x[0], sdata_x[-1]), edgecolor='black')
-            axs[0].set_title('Гистограмма данных X')
+            axs[0].set_title('Гистограмма выборки 1')
             axs[0].set_xlabel('Значения')
             axs[0].set_ylabel('Частота')
 
             axs[1].hist(data_y, bins=int_y, range=(sdata_y[0], sdata_y[-1]), edgecolor='black')
-            axs[1].set_title('Гистограмма данных Y')
+            axs[1].set_title('Гистограмма выборки 2')
             axs[1].set_xlabel('Значения')
             axs[1].set_ylabel('Частота')
 
@@ -196,12 +196,12 @@ def create_two_dim_tab(tab):
 
     fig, axs = plt.subplots(1, 2, figsize=(10, 4))
     axs[0].hist([], bins=10, edgecolor='black')
-    axs[0].set_title('Гистограмма данных X')
+    axs[0].set_title('Гистограмма выборки 1')
     axs[0].set_xlabel('Значения')
     axs[0].set_ylabel('Частота')
 
     axs[1].hist([], bins=10, edgecolor='black')
-    axs[1].set_title('Гистограмма данных Y')
+    axs[1].set_title('Гистограмма выборки 2')
     axs[1].set_xlabel('Значения')
     axs[1].set_ylabel('Частота')
 

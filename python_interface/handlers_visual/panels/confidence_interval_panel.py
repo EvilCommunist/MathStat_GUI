@@ -15,7 +15,7 @@ def open_confidence_interval_window(root):
     frame = ttk.Frame(new_window, padding="10")
     frame.pack(fill=tk.BOTH, expand=True)
 
-    data_label = ttk.Label(frame, text="Введите данные через запятую:", font=("Helvetica", 12))
+    data_label = ttk.Label(frame, text="Введите элементы выборки через запятую:", font=("Helvetica", 12))
     data_label.grid(row=0, column=0, pady=10, sticky="w")
 
     data_entry = ttk.Entry(frame, width=50)
@@ -46,7 +46,7 @@ def open_confidence_interval_window(root):
             except Exception as e:
                 messagebox.showerror("Ошибка", str(e))
 
-    load_button = ttk.Button(frame, text="Загрузить выборку из файла", command=load_data_from_file)
+    load_button = ttk.Button(frame, text="Загрузить элементы выборки из файла", command=load_data_from_file)
     load_button.grid(row=1, column=1, pady=10, padx=20)
 
     def calculate_confidence_interval(func):
@@ -100,14 +100,14 @@ def open_confidence_interval_window(root):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    norm_button = ttk.Button(frame, text="Расчет для выборочного среднего", command=lambda:
+    norm_button = ttk.Button(frame, text="Оценка выборочного среднего", command=lambda:
                              calculate_confidence_interval("get_mean"))
     norm_button.grid(row=3, column=1, pady=10, padx=20, sticky="w")
 
-    chisq_button = ttk.Button(frame, text="Расчет для дисперсии", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
+    chisq_button = ttk.Button(frame, text="Оценка дисперсии", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
     chisq_button.grid(row=4, column=1, pady=10, padx=20, sticky="w")
 
-    error_button = ttk.Button(frame, text="Расчет для оценки ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))
+    error_button = ttk.Button(frame, text="Оценка ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))
     error_button.grid(row=5, column=1, pady=10, padx=20, sticky="w")
 
     plot_frame = ttk.Frame(frame)
