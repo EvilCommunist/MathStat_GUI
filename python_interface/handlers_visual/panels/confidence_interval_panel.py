@@ -21,8 +21,19 @@ def open_confidence_interval_window(root):
     data_entry = ttk.Entry(frame, width=50)
     data_entry.grid(row=1, column=0, pady=10, sticky="w")
 
+    prob_label = ttk.Label(frame, text="Введите желаемую доверительную вероятность:", font=("Helvetica", 12))
+    prob_label.grid(row=3, column=0, pady=10, sticky="w")
+
+    prob_entry_frame = ttk.Frame(frame)
+    prob_entry_frame.grid(row=4, column=0, pady=10, sticky="w")
+
+    prob_entry = ttk.Entry(prob_entry_frame, width=50)
+    prob_entry.grid(row=5, column=0, pady=10, sticky="w")
+    prob_entry.insert(0, "0.95")
+    prob_entry.focus_set()
+
     result_label = ttk.Label(frame, text="Результаты будут отображены здесь", font=("Helvetica", 12))
-    result_label.grid(row=2, column=0, pady=20, sticky="w")
+    result_label.grid(row=6, column=0, pady=20, sticky="w")
 
     def load_data_from_file():
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
@@ -35,17 +46,21 @@ def open_confidence_interval_window(root):
             except Exception as e:
                 messagebox.showerror("Ошибка", str(e))
 
-    load_button = ttk.Button(frame, text="Загрузить из файла", command=load_data_from_file)
-    load_button.grid(row=1, column=1, padx=10)
+    load_button = ttk.Button(frame, text="Загрузить выборку из файла", command=load_data_from_file)
+    load_button.grid(row=1, column=1, pady=10, padx=20)
 
     def calculate_confidence_interval(func):
         input_text = data_entry.get()
+        input_prob = prob_entry.get()
         try:
             data = list(map(float, input_text.split(",")))
+            prob = float(input_prob)
             if func == "get_mean" and len(data) < 35:
-                result = get_mean_interval_borders_t(selection_size=len(data), average_weight=mean(data), unbased_disp=uvar(data, mean(data)))
+                result = get_mean_interval_borders_t(selection_size=len(data), average_weight=mean(data),
+                                                     unbased_disp=uvar(data, mean(data)), alpha=(1-prob))
             elif func == "get_mean" and len(data) >= 35:
-                result = get_mean_inteval_borders_norm(selection_size=len(data), average_weight=mean(data), std_deviation=uvar(data, mean(data))**0.5)
+                result = get_mean_inteval_borders_norm(selection_size=len(data), average_weight=mean(data),
+                                                       std_deviation=uvar(data, mean(data))**0.5, confidence_prob=prob)
             elif func == get_variance_interval_borders_chisq:
                 result = func(data=data)
             elif func == get_error_estimation:
@@ -86,17 +101,17 @@ def open_confidence_interval_window(root):
     style.configure("TButton", background="DodgerBlue3")
 
     norm_button = ttk.Button(frame, text="Расчет для выборочного среднего", command=lambda:
-        calculate_confidence_interval("get_mean"))
-    norm_button.grid(row=3, column=0, pady=10, sticky="w")
+                             calculate_confidence_interval("get_mean"))
+    norm_button.grid(row=3, column=1, pady=10, padx=20, sticky="w")
 
     chisq_button = ttk.Button(frame, text="Расчет для дисперсии", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
-    chisq_button.grid(row=4, column=0, pady=10, sticky="w")
+    chisq_button.grid(row=4, column=1, pady=10, padx=20, sticky="w")
 
     error_button = ttk.Button(frame, text="Расчет для оценки ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))
-    error_button.grid(row=5, column=0, pady=10, sticky="w")
+    error_button.grid(row=5, column=1, pady=10, padx=20, sticky="w")
 
     plot_frame = ttk.Frame(frame)
-    plot_frame.grid(row=0, column=2, rowspan=7, padx=20, pady=10, sticky="nsew")
+    plot_frame.grid(row=7, column=0, rowspan=7, padx=20, pady=10, sticky="nsew")
 
     for child in frame.winfo_children():
         child.grid_configure(padx=5, pady=5)
