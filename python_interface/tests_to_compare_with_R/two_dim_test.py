@@ -1,5 +1,5 @@
 import os
-from handlers_functions.standard_functions.r_functions import get_cor_coef
+from python_interface.handlers_functions.standard_functions.r_functions import get_cor_coef
 
 
 script_dir = os.path.dirname(__file__)

@@ -1,5 +1,5 @@
-from handlers_functions.standard_functions.r_functions import kol_smir_test as ks_test
-from handlers_functions.standard_functions.standart_functions import (Rtype as StandDist,
+from python_interface.handlers_functions.standard_functions.r_functions import kol_smir_test as ks_test
+from python_interface.handlers_functions.standard_functions.standart_functions import (Rtype as StandDist,
                                                                       convert_list_to_tuple as ltt)
 
 

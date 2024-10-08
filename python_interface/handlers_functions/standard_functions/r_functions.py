@@ -1,8 +1,8 @@
 import re
 from rpy2 import robjects as r_obj
-from handlers_functions.standard_functions.standart_functions import (list_is_integer,
-                                                                      convert_list_to_tuple as ltt,
-                                                                      Rtype)
+from python_interface.handlers_functions.standard_functions.standart_functions import (list_is_integer,
+                                                                                       convert_list_to_tuple as ltt,
+                                                                                       Rtype)
 r_sum = r_obj.r["sum"]  # defining global R function for processing likelihood ||
                         # определение функции R для определения правдоподобности
 

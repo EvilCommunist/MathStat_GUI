@@ -1,5 +1,5 @@
 import os
-from handlers_functions.point_estimate.estimation import (get_variance_sample_mean as get_var_smean,
+from python_interface.handlers_functions.point_estimate.estimation import (get_variance_sample_mean as get_var_smean,
                                                           get_pois_function_likelihood as get_pois,
                                                           get_binomial_function_likelihood as get_binom,
                                                           get_normal_function_likelihood as get_norm)

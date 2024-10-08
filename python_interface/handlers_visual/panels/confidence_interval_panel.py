@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from handlers_functions.confidence_interval.confidence_interval import *
-from handlers_functions.standard_functions.r_functions import var_unbased as uvar, mean
+from python_interface.handlers_functions.confidence_interval.confidence_interval import *
+from python_interface.handlers_functions.standard_functions.r_functions import var_unbased as uvar, mean
 
 
 def open_confidence_interval_window(root):

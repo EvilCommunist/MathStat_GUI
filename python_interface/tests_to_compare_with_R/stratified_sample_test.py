@@ -1,5 +1,5 @@
 import os
-from handlers_functions.stratified_sample.stratified_sample import (get_mix_mean_data as meand,
+from python_interface.handlers_functions.stratified_sample.stratified_sample import (get_mix_mean_data as meand,
                                                                     get_mix_mean_probs as meanp,
                                                                     get_disp_of_strata as sdisp,
                                                                     get_mix_disp as disp,

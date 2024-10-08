@@ -1,4 +1,4 @@
-from handlers_functions.standard_functions.standart_functions import lg, log2, sqrt
+from python_interface.handlers_functions.standard_functions.standart_functions import lg, log2, sqrt
 
 
 def get_sort_data(data: list[int] | list[float]) -> list[int] | list[float]:

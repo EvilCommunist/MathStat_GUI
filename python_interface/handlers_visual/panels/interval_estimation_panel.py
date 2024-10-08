@@ -2,13 +2,13 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import matplotlib.pyplot as plt
-from handlers_functions.point_estimate.estimation import (
+from python_interface.handlers_functions.point_estimate.estimation import (
     get_pois_function_likelihood,
     get_binomial_function_likelihood,
     get_normal_function_likelihood,
     get_variance_sample_mean as var_smean
 )
-from handlers_functions.selection.one_dim_selection import get_intervals, get_sort_data
+from python_interface.handlers_functions.selection.one_dim_selection import get_intervals, get_sort_data
 
 
 def open_likelihood_window(root):
