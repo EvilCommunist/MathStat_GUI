@@ -15,3 +15,16 @@ if (Z_value > critical_value) {
   hypothesis <- "H0"
 }
 cat(Z_value, hypothesis)
+
+
+# Проверка размера выборки
+alpha <- 0.05     
+beta <- 0.1      
+sigma <- 2
+mu_0 <- 5   # H0: a = 5
+mu_1 <- 5.5  # H1: a = 5.5
+Z_alpha <- qnorm(1 - alpha)
+Z_beta <- qnorm(1 - beta)
+n <- ((Z_alpha + Z_beta) * sigma / (mu_1 - mu_0))^2
+n_min <- ceiling(n)
+cat("Объем выборки:", n_min, "\n")
