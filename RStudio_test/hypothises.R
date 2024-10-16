@@ -28,3 +28,21 @@ Z_beta <- qnorm(1 - beta)
 n <- ((Z_alpha + Z_beta) * sigma / (mu_1 - mu_0))^2
 n_min <- ceiling(n)
 cat("Объем выборки:", n_min, "\n")
+
+# Поиск p-значения и проверка
+data <- c(986, 1005, 991, 994, 983, 1002, 996, 998, 1002, 983)
+shapiro_test <- shapiro.test(data)
+print(shapiro_test)
+alpha <- 0.05
+mean_data <- mean(data)
+sd_data <- sd(data)
+t_test <- t.test(data, mu = 1000)
+print(t_test)
+p_value <- t_test$p.value
+if (p_value < alpha) {
+  cat(sprintf("%.3f, H1", p_value))
+} else {
+  cat(sprintf("%.3f, H0", p_value))
+}
+
+
