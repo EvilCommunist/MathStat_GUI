@@ -31,7 +31,7 @@ cat("Объем выборки:", n_min, "\n")
 
 # Поиск p-значения и проверка
 data <- c(986, 1005, 991, 994, 983, 1002, 996, 998, 1002, 983)
-shapiro_test <- shapiro.test(data)
+shapiro_test <- shapiro.test(data)  # может особо и не надо....
 print(shapiro_test)
 alpha <- 0.05
 mean_data <- mean(data)

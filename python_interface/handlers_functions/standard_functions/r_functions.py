@@ -86,6 +86,14 @@ def kol_smir_test(data: list[int] | list[float], rtype: str) -> tuple:
                                     # p - указывает на схожесть между выборками, чем ближе к 1, тем больше схожесть
 
 
+def t_test(data: list[int] | list[float], a0: int | float) -> float:
+    r_ttest = r_obj.r["t.test"]
+    res = r_ttest(ptr(data), mu=a0).r_repr()
+    p_value = re.search(r'p\.value = ([0-9.]+)', res)
+    p_value = float(p_value.group(1)) if p_value else None
+    return p_value
+
+
 def dpois_sum(data: list[int], lambda_value: float, is_log: bool) -> float:
     r_dpois = r_obj.r["dpois"]
     return rtp(r_sum(r_dpois(ptr(data), lambda_value, is_log)))
