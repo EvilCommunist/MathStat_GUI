@@ -5,16 +5,28 @@ def get_sort_data(data: list[int] | list[float]) -> list[int] | list[float]:
     return sorted(data)
 
 
-def get_intervals(data: list[int] | list[float]) -> int:
-    return int(5*lg(len(data)))
+def get_intervals(data: list[int] | list[float]) -> list:
+    n = int(5 * lg(len(data)))
+    int_begin = data[0]
+    h = (data[-1] - int_begin)/n
+    interval_list = [(int_begin + h*i) for i in range(0, n)]
+    return interval_list
 
 
-def get_intervals1(data: list[int] | list[float]) -> int:  # Сделать возможность выбора функции рассчёта
-    return int(sqrt(len(data)))
+def get_intervals1(data: list[int] | list[float]) -> list:  # Сделать возможность выбора функции рассчёта
+    n = int(sqrt(len(data)))
+    int_begin = data[0]
+    h = (data[-1] - int_begin) / n
+    interval_list = [(int_begin + h * i) for i in range(0, n)]
+    return interval_list
 
 
-def get_intervals2(data: list[int] | list[float]) -> int:
-    return int(log2(len(data)+1))
+def get_intervals2(data: list[int] | list[float]) -> list:
+    n = int(log2(len(data)+1))
+    int_begin = data[0]
+    h = (data[-1] - int_begin) / n
+    interval_list = [(int_begin + h * i) for i in range(0, n)]
+    return interval_list
 
 
 def get_quartile(sorted_data: list[int] | list[float], num_of_quartile: int = 1) -> float | int | Exception:
