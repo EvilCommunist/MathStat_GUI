@@ -126,3 +126,9 @@ def qt(prob: float, df: int) -> float:
 def qchisq(prob: float, df: int) -> float:
     r_qchisq = r_obj.r["qchisq"]
     return rtp(r_qchisq(prob, df))
+
+
+def pchisq(stat: float, df: int) -> float:
+    r_pchisq = r_obj.r["pchisq"]
+    return rtp(r_pchisq(stat, df=df))
+
