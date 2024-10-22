@@ -46,3 +46,14 @@ if (p_value < alpha) {
 }
 
 
+# Проверка дисперсии (гипотеза)
+n <- 25
+s2 <- 13.5
+sigma0_squared <- 9
+chi_square_statistic <- (n-1) * s2 / sigma0_squared
+print(chi_square_statistic)
+alpha <- 0.05
+p_value <- 1 - pchisq(chi_square_statistic, df = n - 1)
+statistical_decision <- ifelse(p_value < alpha, "H1", "H0")
+cat(round(p_value, 3), ", ", statistical_decision, sep="")
+
