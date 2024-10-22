@@ -17,7 +17,7 @@ def create_main_buttons(root):
     button_frame.pack(pady=50)
 
     button1 = ttk.Button(
-        button_frame, text="Тема 1: Вариационный ряд", command=lambda: open_new_window(root), style='TButton'
+        button_frame, text="Вариационный ряд", command=lambda: open_new_window(root), style='TButton'
     )
     button1.pack(pady=10, fill='x', padx=20)
     button1.focus_set()
@@ -28,7 +28,7 @@ def create_main_buttons(root):
     button2.pack(pady=10, fill='x', padx=20)
 
     button3 = ttk.Button(
-        button_frame, text="Тема 2: Оценка параметров", command=lambda: open_confidence_interval_window(root),
+        button_frame, text="Оценка параметров", command=lambda: open_confidence_interval_window(root),
         style='TButton'
     )
     button3.pack(pady=10, fill='x', padx=20)
