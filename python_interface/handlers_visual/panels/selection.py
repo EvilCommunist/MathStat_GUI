@@ -71,7 +71,7 @@ def create_one_dim_tab(tab):
             intervals = get_intervals(sorted_data)
             # Plot histogram
             fig, ax = plt.subplots(figsize=(5, 4))
-            ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-0]), edgecolor='black')
+            ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
             ax.set_title('Гистограмма')
             ax.set_xlabel('Значения')
             ax.set_ylabel('Частота')
@@ -165,12 +165,12 @@ def create_two_dim_tab(tab):
             result_label.config(text=result_text)
 
             fig, axs = plt.subplots(1, 2, figsize=(10, 4))
-            axs[0].hist(data_x, bins=int_x, range=(sdata_x[0], sdata_x[-0]), edgecolor='black')
+            axs[0].hist(data_x, bins=int_x, range=(sdata_x[0], sdata_x[-1]), edgecolor='black')
             axs[0].set_title('Гистограмма выборки 1')
             axs[0].set_xlabel('Значения')
             axs[0].set_ylabel('Частота')
 
-            axs[1].hist(data_y, bins=int_y, range=(sdata_y[0], sdata_y[-0]), edgecolor='black')
+            axs[1].hist(data_y, bins=int_y, range=(sdata_y[0], sdata_y[-1]), edgecolor='black')
             axs[1].set_title('Гистограмма выборки 2')
             axs[1].set_xlabel('Значения')
             axs[1].set_ylabel('Частота')
