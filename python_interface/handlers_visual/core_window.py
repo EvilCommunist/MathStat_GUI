@@ -3,6 +3,7 @@ from tkinter import ttk
 from handlers_visual.panels.selection import open_new_window
 from handlers_visual.panels.interval_estimation_panel import open_likelihood_window
 from handlers_visual.panels.confidence_interval_panel import open_confidence_interval_window
+from handlers_visual.panels.hypothises import open_hypothises_window
 
 
 def create_main_buttons(root):
@@ -23,13 +24,13 @@ def create_main_buttons(root):
     button1.focus_set()
 
     button2 = ttk.Button(
-        button_frame, text="В разработке(", command=lambda: open_likelihood_window(root), style='TButton'
+        button_frame, text="Оценка параметров", command=lambda: open_confidence_interval_window(root),
+        style='TButton'
     )
     button2.pack(pady=10, fill='x', padx=20)
 
     button3 = ttk.Button(
-        button_frame, text="Оценка параметров", command=lambda: open_confidence_interval_window(root),
-        style='TButton'
+        button_frame, text="Проверка гипотиз", command=lambda: open_hypothises_window(root), style='TButton'
     )
     button3.pack(pady=10, fill='x', padx=20)
 
