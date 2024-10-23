@@ -143,5 +143,5 @@ def open_hypothises_window(root):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    open_likelihood_window(root)
+    open_hypothises_window(root)
     root.mainloop()
