@@ -9,7 +9,7 @@ def get_variance_sample_mean(data: list[int] | list[float]) -> float:
 
 
 def get_parameter_estimate(data: list[int] | list[float]) -> float:  # IDK if this one's really needed
-    return 0
+   pass
 
 
 def get_pois_function_likelihood(data: list[int], lambda_value: float | None = None,
