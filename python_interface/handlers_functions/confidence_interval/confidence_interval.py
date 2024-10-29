@@ -40,8 +40,8 @@ def get_error_estimation(data: list[int] | list[float], alpha: float = 0.1,
     if average_weight is None:
         average_weight = mean(data)
     z = qnorm(1-alpha/2)
-    std_err = (average_weight*(1-average_weight)/len(data))**0.5
+    std_err = (abs(average_weight*(1-average_weight)/len(data)))**0.5
     lower_border = average_weight - std_err*z
     upper_border = average_weight + std_err * z
-    return ltt([lower_border, upper_border])  # учесть обработку значений с комплексным результатом
+    return ltt([lower_border, upper_border, "err"])  # учесть обработку значений с комплексным результатом
 

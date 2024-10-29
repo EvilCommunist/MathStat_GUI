@@ -57,3 +57,24 @@ p_value <- 1 - pchisq(chi_square_statistic, df = n - 1)
 statistical_decision <- ifelse(p_value < alpha, "H1", "H0")
 cat(round(p_value, 3), ", ", statistical_decision, sep="")
 
+# Поиск критической области
+n <- 225            # общее количество опрошенных
+k <- 135            # количество успехов
+
+alpha <- 0.01
+p0 <- 0.5
+p_hat <- k / n
+z <- (p_hat - p0) / sqrt((p0 * (1 - p0)) / n)
+z_critical <- qnorm(1 - alpha)
+if (z > z_critical) {
+  critical_left <- -Inf
+  critical_right <- z_critical
+  decision <- "H1"
+} else {
+  critical_left <- z_critical
+  critical_right <- Inf
+  decision <- "H0"
+}
+cat(sprintf("%f, %f, %s", critical_left, critical_right, decision))
+
+

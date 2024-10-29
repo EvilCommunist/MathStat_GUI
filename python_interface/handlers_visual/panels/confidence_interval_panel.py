@@ -62,12 +62,13 @@ def open_confidence_interval_window(root):
                 result = get_mean_inteval_borders_norm(selection_size=len(data), average_weight=mean(data),
                                                        std_deviation=uvar(data, mean(data))**0.5, confidence_prob=prob)
             elif func == get_variance_interval_borders_chisq:
-                result = func(data=data)
+                result = func(data=data, alpha=1-prob)
             elif func == get_error_estimation:
-                result = func(data=data)
+                result = func(data=data, alpha=1-prob)
             else:
                 result = "Неизвестная функция"
-            result_label.config(text=f"Результат: {result}")
+
+            result_label.config(text=f"Результат: {result[:-1]}")
             update_plot(data, result)
         except Exception as e:
             messagebox.showerror("Ошибка", str(e))

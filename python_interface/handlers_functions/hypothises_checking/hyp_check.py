@@ -28,3 +28,7 @@ def get_good_data_len(a0: float, a1: int | float, sigma: float, alpha: float = 0
 def get_hyp_prob_result(data: list[int] | list[float], a_0: int | float, alpha: float = 0.1) -> bool:
     p_value = t_test(data, a_0)
     return p_value < alpha  # H0 = false, H1 = true
+
+
+def get_critical_area():
+    pass
