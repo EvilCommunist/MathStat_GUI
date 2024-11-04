@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from handlers_functions.selection.one_dim_selection import get_sort_data, get_quartile, get_intervals
 from handlers_functions.standard_functions.r_functions import *
-from handlers_functions.standard_functions.standart_functions import *
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -172,7 +171,7 @@ def create_two_dim_tab(tab):
             xpos = xpos.ravel()
             ypos = ypos.ravel()
             zpos = 0
-            dx = dy = 0.75*np.ones_like(zpos)
+            dx = dy = 0.9*np.ones_like(zpos)
             dz = hist.ravel()
             ax.bar3d(xpos, ypos, zpos, dx, dy, dz, zsort='average', edgecolor='black')
             ax.set_title('Гистограмма распределения')
