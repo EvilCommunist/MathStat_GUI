@@ -4,6 +4,7 @@ from handlers_functions.selection.one_dim_selection import get_sort_data, get_qu
 from handlers_functions.standard_functions.r_functions import *
 from handlers_functions.standard_functions.standart_functions import *
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
 
@@ -164,16 +165,20 @@ def create_two_dim_tab(tab):
             result_text = f"Коэффициент корреляции: {cor_coef:.2f}"
             result_label.config(text=result_text)
 
-            fig, axs = plt.subplots(1, 2, figsize=(10, 4))
-            axs[0].hist(data_x, bins=int_x, range=(sdata_x[0], sdata_x[-1]), edgecolor='black')
-            axs[0].set_title('Гистограмма выборки 1')
-            axs[0].set_xlabel('Значения')
-            axs[0].set_ylabel('Частота')
-
-            axs[1].hist(data_y, bins=int_y, range=(sdata_y[0], sdata_y[-1]), edgecolor='black')
-            axs[1].set_title('Гистограмма выборки 2')
-            axs[1].set_xlabel('Значения')
-            axs[1].set_ylabel('Частота')
+            fig = plt.figure(figsize=(10, 7))
+            ax = fig.add_subplot(111, projection='3d')
+            hist, xedges, yedges = np.histogram2d(sdata_x, sdata_y, bins=[len(int_x), len(int_y)])
+            xpos, ypos = np.meshgrid(xedges[:-1] + 0.25, yedges[:-1] + 0.25, indexing="ij")
+            xpos = xpos.ravel()
+            ypos = ypos.ravel()
+            zpos = 0
+            dx = dy = 0.75*np.ones_like(zpos)
+            dz = hist.ravel()
+            ax.bar3d(xpos, ypos, zpos, dx, dy, dz, zsort='average', edgecolor='black')
+            ax.set_title('Гистограмма распределения')
+            ax.set_xlabel('Выборка 1')
+            ax.set_ylabel('Выборка 2')
+            ax.set_zlabel('Частота')
 
             if canvas:
                 canvas.get_tk_widget().destroy()
@@ -194,16 +199,20 @@ def create_two_dim_tab(tab):
     start_button = ttk.Button(tab, text="Вычислить", command=starter, style="TButton")
     start_button.pack(pady=10)
 
-    fig, axs = plt.subplots(1, 2, figsize=(10, 4))
-    axs[0].hist([], bins=10, edgecolor='black')
-    axs[0].set_title('Гистограмма выборки 1')
-    axs[0].set_xlabel('Значения')
-    axs[0].set_ylabel('Частота')
-
-    axs[1].hist([], bins=10, edgecolor='black')
-    axs[1].set_title('Гистограмма выборки 2')
-    axs[1].set_xlabel('Значения')
-    axs[1].set_ylabel('Частота')
+    fig = plt.figure(figsize=(10, 7))
+    ax = fig.add_subplot(111, projection='3d')
+    hist, xedges, yedges = np.histogram2d([0,0,0], [0,0,0], bins=[10, 10])
+    xpos, ypos = np.meshgrid(xedges[:-1] + 0.25, yedges[:-1] + 0.25, indexing="ij")
+    xpos = xpos.ravel()
+    ypos = ypos.ravel()
+    zpos = 0
+    dx = dy = 0.5 * np.ones_like(zpos)
+    dz = hist.ravel()
+    ax.bar3d(xpos, ypos, zpos, dx, dy, dz, zsort='average', edgecolor='black')
+    ax.set_title('Гистограмма распределения')
+    ax.set_xlabel('Выборка 1')
+    ax.set_ylabel('Выборка 2')
+    ax.set_zlabel('Частота')
 
     canvas = FigureCanvasTkAgg(fig, master=tab)
     canvas.draw()

@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-data_x = np.random.normal(0, 1, 1000)
-data_y = np.random.normal(1, 2, 1000)
+data_x = np.random.normal(0, 1, 20)
+data_y = np.random.normal(1, 2, 20)
 
 bins_x = 30
 bins_y = 30
