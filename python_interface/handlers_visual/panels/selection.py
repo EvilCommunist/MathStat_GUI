@@ -111,19 +111,24 @@ def create_one_dim_tab(tab):
 
 
 def create_two_dim_tab(tab):
-    vector_x_label = ttk.Label(tab, text="Введите элементы выборки 1 через запятую:", font=("Helvetica", 12))
+    button_frame = ttk.Frame(tab)
+    button_frame.pack(side=tk.LEFT, padx=10, pady=10)
+    canvas_frame = ttk.Frame(tab)
+    canvas_frame.pack(side=tk.RIGHT, padx=10, pady=10)
+
+    vector_x_label = ttk.Label(button_frame, text="Введите элементы выборки 1 через запятую:", font=("Helvetica", 12))
     vector_x_label.pack(pady=5)
 
-    vector_x = ttk.Entry(tab, width=50)
+    vector_x = ttk.Entry(button_frame, width=50)
     vector_x.pack(padx=30, pady=10)
 
-    vector_y_label = ttk.Label(tab, text="Введите элементы выборки 2 через запятую:", font=("Helvetica", 12))
+    vector_y_label = ttk.Label(button_frame, text="Введите элементы выборки 2 через запятую:", font=("Helvetica", 12))
     vector_y_label.pack(pady=5)
 
-    vector_y = ttk.Entry(tab, width=50)
+    vector_y = ttk.Entry(button_frame, width=50)
     vector_y.pack(padx=30, pady=10)
 
-    result_label = ttk.Label(tab, text="Результаты будут отображены здесь", font=("Helvetica", 12))
+    result_label = ttk.Label(button_frame, text="Результаты будут отображены здесь", font=("Helvetica", 12))
     result_label.pack(pady=20)
 
     canvas = None
@@ -143,7 +148,7 @@ def create_two_dim_tab(tab):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    load_button = ttk.Button(tab, text="Загрузить элементы выборок из файла", command=load_from_file, style="TButton")
+    load_button = ttk.Button(button_frame, text="Загрузить элементы выборок из файла", command=load_from_file, style="TButton")
     load_button.pack(pady=10)
 
     def starter():
@@ -184,18 +189,18 @@ def create_two_dim_tab(tab):
             if toolbar:
                 toolbar.destroy()
 
-            canvas = FigureCanvasTkAgg(fig, master=tab)
+            canvas = FigureCanvasTkAgg(fig, master=canvas_frame)
             canvas.draw()
             canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-            toolbar = NavigationToolbar2Tk(canvas, tab)
+            toolbar = NavigationToolbar2Tk(canvas, canvas_frame)
             toolbar.update()
             toolbar.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         except Exception as e:
             messagebox.showerror("Ошибка", str(e))
 
-    start_button = ttk.Button(tab, text="Вычислить", command=starter, style="TButton")
+    start_button = ttk.Button(button_frame, text="Вычислить", command=starter, style="TButton")
     start_button.pack(pady=10)
 
     fig = plt.figure(figsize=(10, 7))
@@ -213,11 +218,11 @@ def create_two_dim_tab(tab):
     ax.set_ylabel('Выборка 2')
     ax.set_zlabel('Частота')
 
-    canvas = FigureCanvasTkAgg(fig, master=tab)
+    canvas = FigureCanvasTkAgg(fig, master=canvas_frame)
     canvas.draw()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-    toolbar = NavigationToolbar2Tk(canvas, tab)
+    toolbar = NavigationToolbar2Tk(canvas, canvas_frame)
     toolbar.update()
     toolbar.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
