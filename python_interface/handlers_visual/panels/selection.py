@@ -58,7 +58,7 @@ def create_one_dim_tab(tab):
     vector_y_label.pack(side=tk.LEFT, pady=10)
 
     prob_combobox = ttk.Combobox(input_frame, values=["Брукс-Каррузер", "Хайнхольд-Гёде", "Стерджесс"], width=25,
-                                 state="readonly")
+                                 state="readonly", font=("Helvetica", 11))
     prob_combobox.pack(side=tk.RIGHT, pady=10, padx=20)
     prob_combobox.current(0)
 
@@ -146,7 +146,7 @@ def create_two_dim_tab(tab):
     vector_y_label.pack(pady=5)
 
     prob_combobox = ttk.Combobox(button_frame, values=["Брукс-Каррузер", "Хайнхольд-Гёде", "Стерджесс"], width=20,
-                                 state="readonly")
+                                 state="readonly", font=("Helvetica", 11))
     prob_combobox.pack(pady=10, padx=20)
     prob_combobox.current(0)
 
