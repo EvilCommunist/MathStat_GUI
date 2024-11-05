@@ -34,7 +34,7 @@ def create_one_dim_tab(tab):
     input_frame.pack(pady=10)
 
     vector_1 = ttk.Entry(input_frame, width=50)
-    vector_1.pack(side=tk.LEFT, padx=10)
+    vector_1.pack(side=tk.TOP, pady=10, padx=10)
 
     def load_from_file():
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
@@ -45,10 +45,18 @@ def create_one_dim_tab(tab):
                 vector_1.insert(0, data)
 
     load_button = ttk.Button(input_frame, text="Загрузить элементы выборки из файла", command=load_from_file)
-    load_button.pack(side=tk.LEFT, padx=10)
+    load_button.pack(side=tk.TOP, padx=10)
 
     result_label = ttk.Label(tab, text="Результаты будут отображены здесь", font=("Helvetica", 12))
-    result_label.pack(pady=20)
+    result_label.pack(pady=10)
+
+    vector_y_label = ttk.Label(input_frame, text="Выберите формулу расчёта интервалов:", font=("Helvetica", 12))
+    vector_y_label.pack(side=tk.LEFT, pady=10)
+
+    prob_combobox = ttk.Combobox(input_frame, values=["Брукс-Каррузер", "Хайнхольд-Гёде", "Стерджесс"], width=25,
+                                 state="readonly")
+    prob_combobox.pack(side=tk.RIGHT, pady=10, padx=20)
+    prob_combobox.current(0)
 
     canvas = None
     toolbar = None
@@ -58,17 +66,19 @@ def create_one_dim_tab(tab):
         input_text = vector_1.get()
 
         try:
+            formula = prob_combobox.get()
             data = list(map(float, input_text.split(",")))
             sorted_data = get_sort_data(data)
             mean_value = mean(sorted_data)
             variance = var_unbased(sorted_data)
             median_value = median(sorted_data)
-            quartile = get_quartile(sorted_data)
+            quartile_1 = get_quartile(sorted_data, 1)
+            quartile_3 = get_quartile(sorted_data, 3)
 
-            result_text = f"Среднее: {mean_value:.2f}\nДисперсия: {variance:.2f}\nМедиана: {median_value:.2f}\nПервый квартиль: {quartile:.2f}"
+            result_text = f"Среднее: {mean_value:.2f}\nДисперсия: {variance:.2f}\nМедиана: {median_value:.2f}\nПервый квартиль: {quartile_1:.2f}\nТретий квартиль: {quartile_3:.2f}"
             result_label.config(text=result_text)
 
-            intervals = get_intervals(sorted_data)  # СДЕЛАТЬ ВЫБОР СПОСОБА РАСЧЁТА ИНТЕРВАЛОВ!
+            intervals = get_intervals(formula, sorted_data)  # СДЕЛАТЬ ВЫБОР СПОСОБА РАСЧЁТА ИНТЕРВАЛОВ!
             # Plot histogram
             fig, ax = plt.subplots(figsize=(5, 4))
             ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
@@ -128,6 +138,14 @@ def create_two_dim_tab(tab):
     vector_y = ttk.Entry(button_frame, width=50)
     vector_y.pack(padx=30, pady=10)
 
+    vector_y_label = ttk.Label(button_frame, text="Выберите формулу расчёта интервалов:", font=("Helvetica", 12))
+    vector_y_label.pack(pady=5)
+
+    prob_combobox = ttk.Combobox(button_frame, values=["Брукс-Каррузер", "Хайнхольд-Гёде", "Стерджесс"], width=20,
+                                 state="readonly")
+    prob_combobox.pack(pady=10, padx=20)
+    prob_combobox.current(0)
+
     result_label = ttk.Label(button_frame, text="Результаты будут отображены здесь", font=("Helvetica", 12))
     result_label.pack(pady=20)
 
@@ -157,14 +175,15 @@ def create_two_dim_tab(tab):
         input_text_y = vector_y.get()
 
         try:
+            formula = prob_combobox.get()
             data_x = list(map(float, input_text_x.split(",")))
             data_y = list(map(float, input_text_y.split(",")))
             sdata_x = get_sort_data(data_x)
             sdata_y = get_sort_data(data_y)
             cor_coef = get_cor_coef(data_x, data_y)
 
-            int_x = get_intervals(sdata_x)
-            int_y = get_intervals(sdata_y)
+            int_x = get_intervals(formula, sdata_x)
+            int_y = get_intervals(formula, sdata_y)
 
             result_text = f"Коэффициент корреляции: {cor_coef:.2f}"
             result_label.config(text=result_text)

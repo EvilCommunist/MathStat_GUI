@@ -8,10 +8,6 @@ def get_variance_sample_mean(data: list[int] | list[float]) -> float:
     return uvar(data, mean(data)) / len(data)
 
 
-def get_parameter_estimate(data: list[int] | list[float]) -> float:  # IDK if this one's really needed
-   pass
-
-
 def get_pois_function_likelihood(data: list[int], lambda_value: float | None = None,
                                  is_log: bool = True) -> float | Exception:
     try:

@@ -35,6 +35,11 @@ def var(data: list[int] | list[float]) -> float:
     return rtp(r_var(ptr(data)))
 
 
+def quartiles(data: list[int] | list[float]):
+    r_quart = r_obj.r["quantile"]
+    return rtp_list_to_list(r_quart(ptr(data))[:-1])
+
+
 def generate_ideal_data(data: list[int] | list[float], rtype: str):
     match rtype:
         case Rtype.pois.value:
