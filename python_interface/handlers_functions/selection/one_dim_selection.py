@@ -41,7 +41,7 @@ def get_intervals(formula: str, data: list[int] | list[float]):
 
 def get_quartile(sorted_data: list[int] | list[float], num_of_quartile: int = 0) -> float | int | Exception:
     try:
-        if num_of_quartile < 0 or num_of_quartile > 4:
+        if num_of_quartile < 0 or num_of_quartile >= 4:
             raise Exception("Некорректное значение квартиля")
     except Exception as ex:
         return ex

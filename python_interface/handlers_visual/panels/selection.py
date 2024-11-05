@@ -27,10 +27,14 @@ def open_new_window(root):
 
 
 def create_one_dim_tab(tab):
-    vector_1_label = ttk.Label(tab, text="Введите элементы выборки через запятую:", font=("Helvetica", 12))
+    button_frame = ttk.Frame(tab)
+    button_frame.pack(side=tk.LEFT, padx=10, pady=10)
+    canvas_frame = ttk.Frame(tab)
+    canvas_frame.pack(side=tk.RIGHT, padx=10, pady=10)
+    vector_1_label = ttk.Label(button_frame, text="Введите элементы выборки через запятую:", font=("Helvetica", 12))
     vector_1_label.pack(pady=5)
 
-    input_frame = ttk.Frame(tab)
+    input_frame = ttk.Frame(button_frame)
     input_frame.pack(pady=10)
 
     vector_1 = ttk.Entry(input_frame, width=50)
@@ -47,7 +51,7 @@ def create_one_dim_tab(tab):
     load_button = ttk.Button(input_frame, text="Загрузить элементы выборки из файла", command=load_from_file)
     load_button.pack(side=tk.TOP, padx=10)
 
-    result_label = ttk.Label(tab, text="Результаты будут отображены здесь", font=("Helvetica", 12))
+    result_label = ttk.Label(button_frame, text="Результаты будут отображены здесь", font=("Helvetica", 12))
     result_label.pack(pady=10)
 
     vector_y_label = ttk.Label(input_frame, text="Выберите формулу расчёта интервалов:", font=("Helvetica", 12))
@@ -80,7 +84,7 @@ def create_one_dim_tab(tab):
 
             intervals = get_intervals(formula, sorted_data)  # СДЕЛАТЬ ВЫБОР СПОСОБА РАСЧЁТА ИНТЕРВАЛОВ!
             # Plot histogram
-            fig, ax = plt.subplots(figsize=(5, 4))
+            fig, ax = plt.subplots(figsize=(8, 6))
             ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
             ax.set_title('Гистограмма')
             ax.set_xlabel('Значения')
@@ -91,31 +95,31 @@ def create_one_dim_tab(tab):
             if toolbar:
                 toolbar.destroy()
 
-            canvas = FigureCanvasTkAgg(fig, master=tab)
+            canvas = FigureCanvasTkAgg(fig, master=canvas_frame)
             canvas.draw()
             canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-            toolbar = NavigationToolbar2Tk(canvas, tab)
+            toolbar = NavigationToolbar2Tk(canvas, canvas_frame)
             toolbar.update()
             toolbar.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         except Exception as e:
             messagebox.showerror("Ошибка", str(e))
 
-    start_button = ttk.Button(tab, text="Вычислить", command=starter)
+    start_button = ttk.Button(button_frame, text="Вычислить", command=starter)
     start_button.pack(pady=10)
 
-    fig, ax = plt.subplots(figsize=(5, 4))
+    fig, ax = plt.subplots(figsize=(8, 6))
     ax.hist([], bins=10, edgecolor='black')
     ax.set_title('Гистограмма')
     ax.set_xlabel('Значения')
     ax.set_ylabel('Частота')
 
-    canvas = FigureCanvasTkAgg(fig, master=tab)
+    canvas = FigureCanvasTkAgg(fig, master=canvas_frame)
     canvas.draw()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
-    toolbar = NavigationToolbar2Tk(canvas, tab)
+    toolbar = NavigationToolbar2Tk(canvas, canvas_frame)
     toolbar.update()
     toolbar.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
