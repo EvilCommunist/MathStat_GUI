@@ -21,8 +21,8 @@ def check_variance0_hypothises(data: list[int] | list[float], var_0: float, alph
 def get_good_data_len(a0: float, a1: int | float, sigma: float, alpha: float = 0.1, beta: float = 0.05) -> int:
     z_alpha = qnorm(1-alpha)
     z_beta = qnorm(1-beta)
-    n = ((z_alpha - z_beta)*sigma/(a1/a0))**2
-    return int(n)
+    n = ((z_alpha + z_beta)*sigma/(a1-a0))**2
+    return int(n+0.5)
 
 
 def get_hyp_prob_result(data: list[int] | list[float], a_0: int | float, alpha: float = 0.1) -> bool:
