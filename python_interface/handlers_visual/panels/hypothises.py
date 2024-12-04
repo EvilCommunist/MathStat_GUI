@@ -124,7 +124,8 @@ def open_hypothises_window(root):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    poisson_button = ttk.Button(button_frame, text="Расчет для Пуассона", command=lambda: calculate_likelihood("poisson"), style="TButton")
+    poisson_button = ttk.Button(button_frame, text="Расчитать оптимальный размер выборки для проверки гипотезы",
+                                command=lambda: calculate_likelihood("poisson"), style="TButton")
     poisson_button.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
     binomial_button = ttk.Button(button_frame, text="Расчет для Биномиального",

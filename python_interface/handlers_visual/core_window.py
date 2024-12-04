@@ -30,7 +30,7 @@ def create_main_buttons(root):
     button2.pack(pady=10, fill='x', padx=20)
 
     button3 = ttk.Button(
-        button_frame, text="Проверка гипотиз", command=lambda: open_hypothises_window(root), style='TButton'
+        button_frame, text="Проверка гипотез", command=lambda: open_hypothises_window(root), style='TButton'
     )
     button3.pack(pady=10, fill='x', padx=20)
 
