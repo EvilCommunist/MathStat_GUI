@@ -121,7 +121,7 @@ def open_hypothises_window(root):
     normal_button.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
     normal_button = ttk.Button(button_frame, text="Оценить гипотезу",
                                command=lambda: calculate(get_prob), style="TButton")
-    normal_button.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
+    normal_button.grid(row=0, column=3, padx=10, pady=5, sticky="ew")
 
     for i in range(3):
         button_frame.columnconfigure(i, weight=1)
