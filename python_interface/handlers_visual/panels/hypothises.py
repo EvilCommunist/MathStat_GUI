@@ -78,31 +78,15 @@ def open_hypothises_window(root):
         ax.set_ylim(bottom=0)
         canvas.draw()
 
-    def calculate_likelihood(distribution):
+    def calculate(function):
         data_entry.focus_force()
         input_text = data_entry.get()
         try:
             data = input_text.split(",")
-            if distribution in ["poisson", "binomial"]:
-                data = list(map(int, data))
-            else:
-                data = list(map(float, data))
 
             plot_histogram(data)
 
-            if distribution == "poisson":
-                result = get_pois_function_likelihood(data)
-                variance_mean = var_smean(data)
-            elif distribution == "binomial":
-                result = get_binomial_function_likelihood(data)
-                variance_mean = var_smean(data)
-            elif distribution == "normal":
-                result = get_normal_function_likelihood(data)
-                variance_mean = var_smean(data)
-            else:
-                result = "Неизвестное распределение"
-                variance_mean = "распределение не определено"
-            result_label.config(text=f"Оценка правдоподобия: {result}, дисперсия выборочного среднего: {variance_mean}")
+            result_label.config(text=f"Оценка правдоподобия: {0}, дисперсия выборочного среднего: {0}")
         except Exception as e:
             messagebox.showerror("Ошибка", str(e))
 
@@ -125,15 +109,18 @@ def open_hypothises_window(root):
     style.configure("TButton", background="DodgerBlue3")
 
     poisson_button = ttk.Button(button_frame, text="Расчитать оптимальный размер выборки для проверки гипотезы",
-                                command=lambda: calculate_likelihood("poisson"), style="TButton")
+                                command=lambda: calculate(check_len), style="TButton")
     poisson_button.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
-    binomial_button = ttk.Button(button_frame, text="Расчет для Биномиального",
-                                 command=lambda: calculate_likelihood("binomial"), style="TButton")
+    binomial_button = ttk.Button(button_frame, text="Проверить гипотезу о выборочном среднем",
+                                 command=lambda: calculate(a0_hyp), style="TButton")
     binomial_button.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
 
-    normal_button = ttk.Button(button_frame, text="Расчет для Нормального",
-                               command=lambda: calculate_likelihood("normal"), style="TButton")
+    normal_button = ttk.Button(button_frame, text="Проверить гипотезу о дисперсии",
+                               command=lambda: calculate(sigma_sq0_hyp), style="TButton")
+    normal_button.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
+    normal_button = ttk.Button(button_frame, text="Оценить гипотезу",
+                               command=lambda: calculate(get_prob), style="TButton")
     normal_button.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
 
     for i in range(3):

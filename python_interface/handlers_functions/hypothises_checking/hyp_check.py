@@ -30,5 +30,8 @@ def get_hyp_prob_result(data: list[int] | list[float], a_0: int | float, alpha: 
     return p_value < alpha  # H0 = false, H1 = true
 
 
+# Здесь может быть реализована функция получения критических областей для гипотез
+'''
 def get_critical_area():
     pass
+'''
