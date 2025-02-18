@@ -8,6 +8,7 @@ from handlers_functions.hypothises_checking.hyp_check import (
     check_a0_hypothises as a0_hyp,
     check_variance0_hypothises as sigma_sq0_hyp
 )
+from handlers_functions.point_estimate.distribution_estimate import estimate_distribution
 from handlers_functions.selection.one_dim_selection import get_intervals, get_sort_data
 
 
@@ -122,6 +123,9 @@ def open_hypothises_window(root):
     normal_button = ttk.Button(button_frame, text="Оценить гипотезу",
                                command=lambda: calculate(get_prob), style="TButton")
     normal_button.grid(row=0, column=3, padx=10, pady=5, sticky="ew")
+    normal_button = ttk.Button(button_frame, text="Оценить распределение",
+                               command=lambda: calculate(estimate_distribution), style="TButton")
+    normal_button.grid(row=0, column=4, padx=10, pady=5, sticky="ew")
 
     for i in range(3):
         button_frame.columnconfigure(i, weight=1)
