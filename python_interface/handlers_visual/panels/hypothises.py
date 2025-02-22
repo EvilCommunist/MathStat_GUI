@@ -82,7 +82,8 @@ def open_hypothises_window(root):
     def plot_histogram(data):
         ax.clear()
         sorted_data = get_sort_data(data)
-        intervals = get_intervals(data)
+        formula = prob_combobox.get()
+        intervals = get_intervals(formula, data)
         ax.axhline(0, color='black', linewidth=0.8)
         ax.hist(data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
         ax.set_xlabel('Значения')
