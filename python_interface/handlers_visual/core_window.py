@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from handlers_visual.panels.selection import open_new_window
-from handlers_visual.panels.interval_estimation_panel import open_likelihood_window
 from handlers_visual.panels.confidence_interval_panel import open_confidence_interval_window
 from handlers_visual.panels.hypothises import open_hypothises_window
 

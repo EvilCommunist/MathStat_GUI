@@ -34,6 +34,17 @@ def open_hypothises_window(root):
     data_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
     data_entry.focus_set()
 
+    hist_formula_frame = ttk.Frame(main_frame)
+    hist_formula_frame.pack(pady=10, fill=tk.X, padx=20)
+
+    vector_y_label = ttk.Label(hist_formula_frame, text="Выберите формулу расчёта интервалов:", font=("Helvetica", 12))
+    vector_y_label.pack(side=tk.LEFT, pady=5)
+
+    prob_combobox = ttk.Combobox(hist_formula_frame, values=["Брукс-Каррузер", "Хайнхольд-Гёде", "Стерджесс"], width=20,
+                                 state="readonly", font=("Helvetica", 11))
+    prob_combobox.pack(side=tk.RIGHT, pady=5, padx=20)
+    prob_combobox.current(0)
+
     def load_data_from_file():
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
         if file_path:
@@ -54,11 +65,11 @@ def open_hypothises_window(root):
 
     fig, ax = plt.subplots()
     canvas = FigureCanvasTkAgg(fig, master=main_frame)
-    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+    canvas.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH, expand=1)
 
     toolbar = NavigationToolbar2Tk(canvas, main_frame)
     toolbar.update()
-    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+    canvas.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH, expand=1)
 
     def plot_empty_histogram():
         ax.clear()
@@ -109,25 +120,25 @@ def open_hypothises_window(root):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    poisson_button = ttk.Button(button_frame, text="Расчитать оптимальный размер выборки для проверки гипотезы",
-                                command=lambda: calculate(check_len), style="TButton")
-    poisson_button.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
+    size_button = ttk.Button(button_frame, text="Расчитать оптимальный размер выборки для проверки гипотезы",
+                             command=lambda: calculate(check_len), style="TButton")
+    size_button.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
-    binomial_button = ttk.Button(button_frame, text="Проверить гипотезу о выборочном среднем",
-                                 command=lambda: calculate(a0_hyp), style="TButton")
-    binomial_button.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
+    a_0_button = ttk.Button(button_frame, text="Проверить гипотезу о выборочном среднем",
+                            command=lambda: calculate(a0_hyp), style="TButton")
+    a_0_button.grid(row=1, column=0, padx=10, pady=5, sticky="ew")
 
-    normal_button = ttk.Button(button_frame, text="Проверить гипотезу о дисперсии",
-                               command=lambda: calculate(sigma_sq0_hyp), style="TButton")
-    normal_button.grid(row=0, column=2, padx=10, pady=5, sticky="ew")
-    normal_button = ttk.Button(button_frame, text="Оценить гипотезу",
-                               command=lambda: calculate(get_prob), style="TButton")
-    normal_button.grid(row=0, column=3, padx=10, pady=5, sticky="ew")
-    normal_button = ttk.Button(button_frame, text="Оценить распределение",
-                               command=lambda: calculate(estimate_distribution), style="TButton")
-    normal_button.grid(row=0, column=4, padx=10, pady=5, sticky="ew")
+    var_button = ttk.Button(button_frame, text="Проверить гипотезу о дисперсии",
+                            command=lambda: calculate(sigma_sq0_hyp), style="TButton")
+    var_button.grid(row=2, column=0, padx=10, pady=5, sticky="ew")
+    hyp_button = ttk.Button(button_frame, text="Оценить гипотезу",
+                            command=lambda: calculate(get_prob), style="TButton")
+    hyp_button.grid(row=3, column=0, padx=10, pady=5, sticky="ew")
+    dist_type_button = ttk.Button(button_frame, text="Оценить распределение",
+                                  command=lambda: calculate(estimate_distribution), style="TButton")
+    dist_type_button.grid(row=4, column=0, padx=10, pady=5, sticky="ew")
 
-    for i in range(3):
+    for i in range(5):
         button_frame.columnconfigure(i, weight=1)
 
     plot_empty_histogram()

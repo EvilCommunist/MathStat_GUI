@@ -82,7 +82,7 @@ def create_one_dim_tab(tab):
             result_text = f"Среднее: {mean_value:.2f}\nДисперсия: {variance:.2f}\nМедиана: {median_value:.2f}\nПервый квартиль: {quartile_1:.2f}\nТретий квартиль: {quartile_3:.2f}"
             result_label.config(text=result_text)
 
-            intervals = get_intervals(formula, sorted_data)  # СДЕЛАТЬ ВЫБОР СПОСОБА РАСЧЁТА ИНТЕРВАЛОВ!
+            intervals = get_intervals(formula, sorted_data)
             # Plot histogram
             fig, ax = plt.subplots(figsize=(8, 6))
             ax.hist(sorted_data, bins=intervals, range=(sorted_data[0], sorted_data[-1]), edgecolor='black')
