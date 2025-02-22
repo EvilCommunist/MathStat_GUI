@@ -24,7 +24,7 @@ def open_hypothises_window(root):
     main_frame = ttk.Frame(new_window)
     main_frame.pack(fill=tk.BOTH, expand=True)
 
-    data_label = ttk.Label(main_frame, text="Введите данные через запятую:", style="TLabel")
+    data_label = ttk.Label(main_frame, text="Введите элементы выборки через запятую:", style="TLabel")
     data_label.pack(pady=10, fill=tk.X)
 
     data_entry_frame = ttk.Frame(main_frame)
@@ -57,7 +57,7 @@ def open_hypothises_window(root):
             except Exception as e:
                 messagebox.showerror("Ошибка", str(e))
 
-    load_button = ttk.Button(data_entry_frame, text="Загрузить из файла", command=load_data_from_file, style="TButton")
+    load_button = ttk.Button(data_entry_frame, text="Загрузить элементы выборки из файла", command=load_data_from_file, style="TButton")
     load_button.pack(side=tk.RIGHT, padx=10)
 
     result_label = ttk.Label(main_frame, text="Результаты будут отображены здесь", style="TLabel")
@@ -143,6 +143,30 @@ def open_hypothises_window(root):
         button_frame.columnconfigure(i, weight=1)
 
     plot_empty_histogram()
+
+    # Ввод желаемого значения ошибок 1-го и 2-го рода
+
+    prob_label = ttk.Label(button_frame, text="Введите желаемые значения ошибок:", font=("Helvetica", 12))
+    prob_label.grid(row=5, column=0, pady=10, sticky="w")
+
+    prob_entry_frame = ttk.Frame(button_frame)
+    prob_entry_frame.grid(row=6, column=0, pady=10, sticky="w")
+
+    prob_label = ttk.Label(prob_entry_frame, text="I-го рода:", font=("Helvetica", 12))
+    prob_label.grid(row=0, column=0, pady=10, sticky="w")
+
+    alpha_entry = ttk.Entry(prob_entry_frame, width=10)
+    alpha_entry.grid(row=0, column=1, padx=20, pady=10, sticky="w")
+    alpha_entry.insert(0, "0.1")
+    alpha_entry.focus_set()
+
+    prob_label = ttk.Label(prob_entry_frame, text="II-го рода:", font=("Helvetica", 12))
+    prob_label.grid(row=0, column=2, pady=10, sticky="w")
+
+    beta_entry = ttk.Entry(prob_entry_frame, width=10)
+    beta_entry.grid(row=0, column=3, padx=20, pady=10, sticky="w")
+    beta_entry.insert(0, "0.05")
+    beta_entry.focus_set()
 
 
 if __name__ == "__main__":
