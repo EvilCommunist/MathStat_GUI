@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
+from tkinter import ttk, messagebox, filedialog, simpledialog
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import matplotlib.pyplot as plt
 from handlers_functions.hypothises_checking.hyp_check import (
@@ -10,6 +10,11 @@ from handlers_functions.hypothises_checking.hyp_check import (
 )
 from handlers_functions.point_estimate.distribution_estimate import estimate_distribution
 from handlers_functions.selection.one_dim_selection import get_intervals, get_sort_data
+from handlers_functions.standard_functions.standart_functions import convert_list_to_tuple as ltt
+
+DISTRIBUTION_TRANSLATOR: dict = {
+ "norm": "Нормальное", "pois": "Пуассоновское", "binom": "Биномиальное", "unset": "Неопределено"
+}
 
 
 def open_hypothises_window(root):
@@ -91,17 +96,63 @@ def open_hypothises_window(root):
         ax.set_ylim(bottom=0)
         canvas.draw()
 
+    def get_parameter_for_calc(par_name: str, par_num: int) -> float | tuple[float, float]:
+        parameter = simpledialog.askstring(f"Запрос на ввод", f"Введите следующие параметры: {par_name}.")
+        try:
+            if par_num > 1:
+                data = list(map(float, parameter.split(",")))
+                return ltt(data)
+            else:
+                data = float(parameter)
+                return float(data)
+        except Exception as ex:
+            messagebox.showerror("Ошибка", str(ex))
+        return 0
+
     def calculate(function):
         data_entry.focus_force()
         input_text = data_entry.get()
         try:
-            data = input_text.split(",")
+            alpha = float(alpha_entry.get())
+            beta = float(beta_entry.get())
 
-            plot_histogram(data)
+            res: float
+            if function == a0_hyp:
+                data = list(map(float, input_text.split(",")))
+                plot_histogram(get_sort_data(data))
+                res = function(data, get_parameter_for_calc("математическое ожидание", 1), alpha)
+                if res:
+                    result_label.config(text=f"Гипотеза верна.")
+                else:
+                    result_label.config(text=f"Гипотеза неверна.")
+            elif function == sigma_sq0_hyp:
+                data = list(map(float, input_text.split(",")))
+                plot_histogram(get_sort_data(data))
+                res = function(data, get_parameter_for_calc("дисперсия", 1), alpha)
+                if res:
+                    result_label.config(text=f"Гипотеза верна.")
+                else:
+                    result_label.config(text=f"Гипотеза неверна.")
+            elif function == check_len:
+                params = get_parameter_for_calc("дисперсия, мат. ожидание, мат. ожидание для альтернативной гипотезы.", 3)
+                res = function(params[1], params[2], params[0], alpha, beta)
+                result_label.config(text=f"Оптимальная длина выборки на основе ваших данных: {res} элемента.")
+            elif function == get_prob:
+                data = list(map(float, input_text.split(",")))
+                plot_histogram(get_sort_data(data))
+                res = function(data, get_parameter_for_calc("выборочное среднее", 1), alpha)
+                if res:
+                    result_label.config(text=f"Гипотеза верна.")
+                else:
+                    result_label.config(text=f"Гипотеза неверна.")
+            elif function == estimate_distribution:
+                data = list(map(float, input_text.split(",")))
+                plot_histogram(get_sort_data(data))
+                res = function(data)
+                result_label.config(text=f"Выбранное распределение: {DISTRIBUTION_TRANSLATOR[res[0]]}, p-значение полученного сравнения: {res[1]}, D-значение: {res[2]}")
 
-            result_label.config(text=f"Оценка правдоподобия: {0}, дисперсия выборочного среднего: {0}")
-        except Exception as e:
-            messagebox.showerror("Ошибка", str(e))
+        except Exception as ex:
+            messagebox.showerror("Ошибка", str(ex))
 
     def load_from_file():
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
@@ -132,7 +183,7 @@ def open_hypothises_window(root):
     var_button = ttk.Button(button_frame, text="Проверить гипотезу о дисперсии",
                             command=lambda: calculate(sigma_sq0_hyp), style="TButton")
     var_button.grid(row=2, column=0, padx=10, pady=5, sticky="ew")
-    hyp_button = ttk.Button(button_frame, text="Оценить гипотезу",
+    hyp_button = ttk.Button(button_frame, text="Оценить гипотезу с текушим значением α",
                             command=lambda: calculate(get_prob), style="TButton")
     hyp_button.grid(row=3, column=0, padx=10, pady=5, sticky="ew")
     dist_type_button = ttk.Button(button_frame, text="Оценить распределение",
