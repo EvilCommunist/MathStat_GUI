@@ -31,7 +31,7 @@ def open_confidence_interval_window(root):
     prob_label.pack(pady=5, anchor="w")
 
     prob_entry = ttk.Entry(data_frame, width=50)
-    prob_entry.pack(pady=5, fill=tk.X)
+    prob_entry.pack(pady=5)
     prob_entry.insert(0, "0.95")
     prob_entry.focus_set()
 
