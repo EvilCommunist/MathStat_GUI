@@ -12,28 +12,34 @@ def open_confidence_interval_window(root):
     new_window.geometry("800x600")
     new_window.configure(background='white')
 
-    frame = ttk.Frame(new_window, padding="10")
-    frame.pack(fill=tk.BOTH, expand=True)
+    main_frame = ttk.Frame(new_window, padding="10")
+    main_frame.pack(fill=tk.BOTH, expand=True)
 
-    data_label = ttk.Label(frame, text="Введите элементы выборки через запятую:", font=("Helvetica", 12))
-    data_label.grid(row=0, column=0, pady=10, sticky="w")
+    top_frame = ttk.Frame(main_frame)
+    top_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=10)
 
-    data_entry = ttk.Entry(frame, width=50)
-    data_entry.grid(row=1, column=0, pady=10, sticky="w")
+    data_frame = ttk.Frame(top_frame)
+    data_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-    prob_label = ttk.Label(frame, text="Введите желаемую доверительную вероятность:", font=("Helvetica", 12))
-    prob_label.grid(row=3, column=0, pady=10, sticky="w")
+    data_label = ttk.Label(data_frame, text="Введите элементы выборки через запятую:", font=("Helvetica", 12))
+    data_label.pack(pady=5, anchor="w")
 
-    prob_entry_frame = ttk.Frame(frame)
-    prob_entry_frame.grid(row=4, column=0, pady=10, sticky="w")
+    data_entry = ttk.Entry(data_frame, width=50)
+    data_entry.pack(pady=5, fill=tk.X)
 
-    prob_entry = ttk.Entry(prob_entry_frame, width=50)
-    prob_entry.grid(row=5, column=0, pady=10, sticky="w")
+    prob_label = ttk.Label(data_frame, text="Введите желаемую доверительную вероятность:", font=("Helvetica", 12))
+    prob_label.pack(pady=5, anchor="w")
+
+    prob_entry = ttk.Entry(data_frame, width=50)
+    prob_entry.pack(pady=5, fill=tk.X)
     prob_entry.insert(0, "0.95")
     prob_entry.focus_set()
 
-    result_label = ttk.Label(frame, text="Результаты будут отображены здесь", font=("Helvetica", 12))
-    result_label.grid(row=6, column=0, pady=20, sticky="w")
+    result_label = ttk.Label(data_frame, text="Результаты будут отображены здесь", font=("Helvetica", 12))
+    result_label.pack(pady=10, anchor="w")
+
+    button_frame = ttk.Frame(top_frame)
+    button_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=5, pady=5)
 
     def load_data_from_file():
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
@@ -46,8 +52,8 @@ def open_confidence_interval_window(root):
             except Exception as e:
                 messagebox.showerror("Ошибка", str(e))
 
-    load_button = ttk.Button(frame, text="Загрузить элементы выборки из файла", command=load_data_from_file)
-    load_button.grid(row=1, column=1, pady=10, padx=20)
+    load_button = ttk.Button(button_frame, text="Загрузить элементы выборки из файла", command=load_data_from_file)
+    load_button.pack(pady=5, fill=tk.X)
 
     def calculate_confidence_interval(func):
         input_text = data_entry.get()
@@ -101,24 +107,17 @@ def open_confidence_interval_window(root):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    norm_button = ttk.Button(frame, text="Оценка выборочного среднего", command=lambda:
-                             calculate_confidence_interval("get_mean"))
-    norm_button.grid(row=3, column=1, pady=10, padx=20, sticky="w")
+    norm_button = ttk.Button(button_frame, text="Оценка выборочного среднего", command=lambda: calculate_confidence_interval("get_mean"))
+    norm_button.pack(pady=5, fill=tk.X)
 
-    chisq_button = ttk.Button(frame, text="Оценка дисперсии", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
-    chisq_button.grid(row=4, column=1, pady=10, padx=20, sticky="w")
+    chisq_button = ttk.Button(button_frame, text="Оценка дисперсии", command=lambda: calculate_confidence_interval(get_variance_interval_borders_chisq))
+    chisq_button.pack(pady=5, fill=tk.X)
 
-    error_button = ttk.Button(frame, text="Оценка ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))
-    error_button.grid(row=5, column=1, pady=10, padx=20, sticky="w")
+    error_button = ttk.Button(button_frame, text="Оценка ошибки", command=lambda: calculate_confidence_interval(get_error_estimation))
+    error_button.pack(pady=5, fill=tk.X)
 
-    plot_frame = ttk.Frame(frame)
-    plot_frame.grid(row=7, column=0, rowspan=7, padx=20, pady=10, sticky="nsew")
-
-    for child in frame.winfo_children():
-        child.grid_configure(padx=5, pady=5)
-
-    frame.grid_columnconfigure(2, weight=1)
-    frame.grid_rowconfigure(7, weight=1)
+    plot_frame = ttk.Frame(main_frame)
+    plot_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
 
 if __name__ == "__main__":
