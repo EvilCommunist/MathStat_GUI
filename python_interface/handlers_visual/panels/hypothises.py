@@ -183,7 +183,7 @@ def open_hypothises_window(root):
     var_button = ttk.Button(button_frame, text="Проверить гипотезу о дисперсии",
                             command=lambda: calculate(sigma_sq0_hyp), style="TButton")
     var_button.grid(row=2, column=0, padx=10, pady=5, sticky="ew")
-    hyp_button = ttk.Button(button_frame, text="Оценить гипотезу с текушим значением α",
+    hyp_button = ttk.Button(button_frame, text="Оценить гипотезу с текущим значением α",
                             command=lambda: calculate(get_prob), style="TButton")
     hyp_button.grid(row=3, column=0, padx=10, pady=5, sticky="ew")
     dist_type_button = ttk.Button(button_frame, text="Оценить распределение",
