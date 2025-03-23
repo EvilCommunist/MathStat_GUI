@@ -42,6 +42,7 @@ def create_main_buttons(root):
               if button2.focus_get() else button3.invoke() if button3.focus_get() else button4.invoke()))
 
 
+'''
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Математическая статистика")
@@ -52,3 +53,4 @@ if __name__ == "__main__":
     create_main_buttons(root)
 
     root.mainloop()
+'''
