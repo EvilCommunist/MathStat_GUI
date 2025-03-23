@@ -19,7 +19,7 @@ DISTRIBUTION_TRANSLATOR: dict = {
 
 def open_hypothises_window(root):
     new_window = tk.Toplevel(root)
-    new_window.title("Проверка гипотиз")
+    new_window.title("Проверка гипотез")
     new_window.configure(background='white')
 
     style = ttk.Style()
@@ -172,7 +172,7 @@ def open_hypothises_window(root):
     style = ttk.Style()
     style.configure("TButton", background="DodgerBlue3")
 
-    size_button = ttk.Button(button_frame, text="Расчитать оптимальный размер выборки для проверки гипотезы",
+    size_button = ttk.Button(button_frame, text="Рассчитать оптимальный размер выборки для проверки гипотезы",
                              command=lambda: calculate(check_len), style="TButton")
     size_button.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
